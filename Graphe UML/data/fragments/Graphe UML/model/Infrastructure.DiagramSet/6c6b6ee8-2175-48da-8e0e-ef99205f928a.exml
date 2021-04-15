@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Graphe UML" version="4">
+  <OBJECT>
+    <ID name="Graphe UML" mc="Infrastructure.DiagramSet" uid="6c6b6ee8-2175-48da-8e0e-ef99205f928a"/>
+    <PID name="Graphe UML" mc="Standard.Project" uid="20d7b672-7270-42b7-80d7-ee0461dac4a8"/>
+    <ATTRIBUTES>
+      <ATT name="Name"><![CDATA[Graphe UML]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>
