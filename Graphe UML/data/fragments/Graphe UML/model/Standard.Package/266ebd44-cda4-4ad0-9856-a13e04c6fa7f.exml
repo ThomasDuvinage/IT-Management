@@ -12,6 +12,16 @@
       <ATT name="Name"><![CDATA[graphe uml]]></ATT>
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
-    <DEPENDENCIES></DEPENDENCIES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Administrateur" mc="Standard.Class" uid="5ec9d63b-2d74-4d1a-9e93-96b06c467513"/>
+        <COMPID name="Utilisateur" mc="Standard.Class" uid="fa57cbdb-c016-403d-b3c5-276c11802ea2"/>
+        <COMPID name="Mode" mc="Standard.Class" uid="7a846975-d968-4cdc-bdec-dc925041cb60"/>
+        <COMPID name="Compte" mc="Standard.Class" uid="3a005471-cbc8-45b4-88cb-ca7a5725a0b9"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="Diagramme de classe graphe uml" mc="Standard.ClassDiagram" uid="a0b39ec8-0b85-4142-a82f-aa0136975bb1"/>
+      </COMP>
+    </DEPENDENCIES>
   </OBJECT>
 </EXT>
