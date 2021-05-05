@@ -20,11 +20,8 @@ import User.User;
 
 public class ManagementApp {
 	private User admin, teacher;//TODO I think the best thing to do here is to define an array of Users
-	
-	private ComputerStation station1;//TODO define building and classroom and then add classrooms in building and ComputerStation in classrooms
-	
+		
 	private Building BatB;
-	
 	
 	public ManagementApp() {
 		this.admin = new Administrator("toto", "roro");
