@@ -1,3 +1,6 @@
-src/Doxygen/html/
-src/Doxygen/latex/
+src/Doxygen/documentation/html/*
+
 .DS_Store
+src/Doxygen/.DS_Store
+
+*.html
