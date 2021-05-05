@@ -1,6 +1,5 @@
 package User;
 
-
 /**
  * 
  * @author GertrudeKambouKemamen, AhmetAdam, ThomasDuvinage

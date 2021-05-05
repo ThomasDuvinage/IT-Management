@@ -1,7 +1,8 @@
 package Component;
 
 public class Mouse extends Component {
-	public Mouse() {
+	public Mouse(int id) {
+		super(id);
 		this.type = ComponentType.MOUSE;
 	}
 

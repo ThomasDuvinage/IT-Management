@@ -39,33 +39,38 @@ enum ComponentType{
  *
  */
 public class Component {
-	public String id; // TODO build depending on the building, classroom name and number of computer in the classroom
+	private String id; // TODO build depending on the building, classroom name and number of computer in the classroom
 	public State state;
 	
-	protected Availability access;
 	protected ComponentType type; // TODO set it in each component child constructor 
 	
-	
-	public Component() {
+	public Component(int n_id) {
 		this.state = State.GOOD; //TODO set 
-		this.access = Availability.FREE; //TODO set 
-		this.id = "to be build";
+		this.id = Integer.toString(n_id); // TODO Bat(A/B/C/...)-102-(CS/K/M/S/SU)102
 	}
 	
-	public void setAvailability(Availability a) {
-		this.access = a;
+	public String getBat() {
+		return this.id.split("-")[0];
 	}
 	
-	public Availability getAvailability() {
-		return this.access;
+	public String getClassroom() {
+		return this.id.split("-")[1];
 	}
+	
+	public String getId() {
+		return this.id;
+	}
+	
+	public void setId(String new_id) {
+		this.id = new_id;
+	}
+	
 	
 	public String toString() {
 		String out = "";
 		out += "\tComponent ID : " + this.id + "\n";
 		out += "\t\tType : " + this.type.toString() + "\n";
 		out += "\t\tState : " + this.state.toString() + "\n";
-		out += "\t\tAvailability : " + this.access.toString() + "\n";
 		
 		return out;
 	}
