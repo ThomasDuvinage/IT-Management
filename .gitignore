@@ -4,3 +4,5 @@ src/Doxygen/documentation/html/*
 src/Doxygen/.DS_Store
 
 *.html
+src/.classpath
+src/.project
