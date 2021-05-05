@@ -1,11 +1,6 @@
 package gui;
 
 import Area.Building;
-import Component.ComputerStation;
-import Component.Keyboard;
-import Component.Mouse;
-import Component.Screen;
-import Component.SystemUnit;
 import User.Administrator;
 import User.Teacher;
 import User.User;
