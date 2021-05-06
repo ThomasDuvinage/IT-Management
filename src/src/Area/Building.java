@@ -25,19 +25,23 @@ public class Building extends Area {
 		return null;
 	}
 	
-	public void createNewClassroomWithCS(int classroomIndex, int nb_CS) {
+	public ArrayList<Classroom> getClassrooms(){
+		return this.ListClassroom;
+	}
+	
+	public void createNewClassroomWithCS(int nb_CS) {
 		this.createNewClassroom();
-		this.ListClassroom.get(classroomIndex).createNewComputerStation(nb_CS);
+		this.ListClassroom.get(this.ListClassroom.size()-1).createNewComputerStation(nb_CS);
 		
 	}
 	
 	public void createNewClassroom() {
-		this.ListClassroom.add(new Classroom(this.ListClassroom.size()));
+		this.ListClassroom.add(new Classroom(this.ListClassroom.size(), this));
 	}
 	
 	public void createNewClassroom(int nb_classroom) {
 		for(int i = 0; i < nb_classroom;i++) {
-			this.ListClassroom.add(new Classroom(this.ListClassroom.size()));
+			this.ListClassroom.add(new Classroom(this.ListClassroom.size(), this));
 		}
 	}
 	

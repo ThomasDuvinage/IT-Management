@@ -1,5 +1,7 @@
 package User;
 
+import Component.ComputerStation;
+
 /**
  * @brief This enumeration is used to define the right associated to each user
  *
@@ -22,6 +24,8 @@ public class User {
 
 	private String pseudo;
 	private String pwd;
+	
+	private ComputerStation cs;
 
 	protected Rights access_right;
 
@@ -60,16 +64,24 @@ public class User {
 
 		return false;
 	}
+	
+	public void use(ComputerStation cs) {
+		this.cs = cs;
+		this.cs.inUSE(this);
+	}
+	
+	public void deconnection() {
+		this.cs.free();
+	}
 
 	public String toString() {
 		String out = "";
 
-		out += "UserType : " + this.access_right.toString() + "\n";
-		out += "Name : " + this.name + "\t First Name : " + this.firstName + "\n";
-		out += "Pseudo : " + this.pseudo + "\n";
+		out += "\tUserType : " + this.access_right.toString() + "\n";
+		out += "\tName : " + this.name + "\t First Name : " + this.firstName + "\n";
+		out += "\tPseudo : " + this.pseudo + "\n";
 
 		return out;
-
 	}
 
 }

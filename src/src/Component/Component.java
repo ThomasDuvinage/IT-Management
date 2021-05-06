@@ -10,14 +10,6 @@ enum State{
 	HS
 }
 
-/**
- * @brief Accessibility of the component 
- *
- */
-enum Availability{
-	FREE,
-	IN_USE
-}
 
 /**
  * @brief Type of the component 

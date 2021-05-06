@@ -1,7 +1,5 @@
 package Area;
 
-import Component.Component;
-
 enum ID{
 	CLASS,
 	BAT

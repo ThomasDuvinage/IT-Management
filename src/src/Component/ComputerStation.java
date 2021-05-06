@@ -2,6 +2,9 @@ package Component;
 
 import java.util.ArrayList;
 
+import Area.Classroom;
+import User.User;
+
 /**
  * 
  * @brief Enumeration to define the state of the computer station. The computer
@@ -10,6 +13,15 @@ import java.util.ArrayList;
  */
 enum ComputerStationState {
 	OUT_OF_SERVICE, IN_SERVICE
+}
+
+/**
+ * @brief Accessibility of the component 
+ *
+ */
+enum Availability{
+	FREE,
+	IN_USE
 }
 
 /**
@@ -29,16 +41,20 @@ enum ComputerStationState {
  */
 
 public class ComputerStation {
-	private String id;
+	private int id;
 	private ComputerStationState state;
 	private ArrayList<Component> ListComponent;
+	private Classroom parentClassroom;
+	
+	private User user;
 	
 	protected Availability access;
 
-	public ComputerStation(int id) {
-		this.id = Integer.toString(id);
+	public ComputerStation(int id, Classroom parentClassroom) {
+		this.id = id;
 		this.ListComponent = new ArrayList<Component>();
 		setComputerStation();
+		this.parentClassroom = parentClassroom;
 		
 		this.state = ComputerStationState.IN_SERVICE;
 		this.access = Availability.FREE; //TODO set 
@@ -51,12 +67,25 @@ public class ComputerStation {
 		this.addNewComponent(ComponentType.SYSTEM_UNIT);
 	}
 	
-	public void setAvailability(Availability a) {
-		this.access = a;
+	public void inUSE(User u) {
+		this.user = u;
+		this.access = Availability.IN_USE;
+	}
+	
+	public void free() {
+		this.user = null;
+		this.access = Availability.FREE;
 	}
 	
 	public Availability getAvailability() {
 		return this.access;
+	}
+	
+	public boolean isAvailable() {
+		if(this.access == Availability.FREE) {
+			return true;
+		}
+		return false;
 	}
 
 	public void addNewComponent(ComponentType type) {
@@ -79,8 +108,13 @@ public class ComputerStation {
 	public void addComponent(Component c) {
 		this.ListComponent.add(c);
 	}
+	
+	
+	public Classroom getParentClassroom() {
+		return this.parentClassroom;
+	}
 
-	public String getId() {
+	public int getId() {
 		return this.id;
 	}
 
@@ -95,8 +129,14 @@ public class ComputerStation {
 	public String toString() {
 		String out = "";
 		out += "Computer Station ID : " + this.id + "\n";
+		out += "Parent Classroom ID : " + this.parentClassroom.getId() + "\n";
 		out += "State : " + this.state.toString() + "\n";
 		out += "Availability : " + this.access.toString() + "\n";
+		
+		if(this.getAvailability() == Availability.IN_USE)
+			out += "User : \n" + this.user.toString() + "\n";
+		else 
+			out += "User : null\n";
 
 		for (Component c : this.ListComponent) {
 			out += c.toString();
