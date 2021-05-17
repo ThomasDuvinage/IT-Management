@@ -7,6 +7,7 @@ import User.Administrator;
 import User.Teacher;
 import User.User;
 import searchEngine.SearchEngine;
+import searchEngine.UserSearchEngine;
 
 /**
  * 
@@ -17,14 +18,18 @@ import searchEngine.SearchEngine;
  */
 
 public class ManagementApp {
-	private User admin, teacher;//TODO I think the best thing to do here is to define an array of Users
+	private UserSearchEngine users;
 		
 	private ArrayList<Building> buildings;
 	private SearchEngine engine;
 	
 	public ManagementApp() {
-		this.admin = new Administrator("toto", "roro");
-		this.teacher = new Teacher("hello", "world", "test", "test");
+		this.users = new UserSearchEngine();
+		this.users.addUser(new Administrator("toto", "roro", "admin", "admin"));
+		this.users.addUser(new Teacher("hello", "world", "test", "test"));
+		
+		Connexion con = new Connexion();
+		con.setUserSearchEngine(users);
 		
 		this.buildings = new ArrayList<Building>();
 		this.buildings.add(new Building(0));
@@ -34,21 +39,23 @@ public class ManagementApp {
 			b.createNewClassroomWithCS(1);
 		}
 		
-		System.out.println(admin.toString());
-		System.out.println(teacher.toString());
-		System.out.println(this.buildings.toString());
+		for(User u : this.users.getUserDb()) {
+			System.out.println(u.toString());
+		}
 		
+		System.out.println(this.buildings.toString());
 		
 		this.engine = new SearchEngine(buildings);
 		
 		System.out.println("Search all classroom in all building");
 		System.out.println(this.engine.getAllClassrooms().toString());
 		
-		this.teacher.use(this.engine.getComputerStationInClass(0, 0, 0));
+		//this.users.get(1).use(this.engine.getComputerStationInClass(0, 0, 0));
 		
 		System.out.println("Search all in use computerStation");
 		System.out.println(this.engine.getAllClassroomWithId(0).toString());
 		
+		System.out.println("-- Waiting for connexion --");
 		
 	}
 	
