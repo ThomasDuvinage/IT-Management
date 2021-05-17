@@ -19,13 +19,13 @@ enum Rights {
  */
 
 public class User {
-	public String name;
-	public String firstName;
+	private String name;
+	private String firstName;
 
 	private String pseudo;
 	private String pwd;
 	
-	private ComputerStation cs;
+	private ComputerStation inUseCS;
 
 	protected Rights access_right;
 
@@ -34,11 +34,27 @@ public class User {
 		this.firstName = first_name;
 	}
 
-	public User(String name, String first_name, String new_pwd, String new_pseudo) {
+	public User(String name, String first_name, String new_pseudo, String new_pwd) {
 		this.name = name;
 		this.firstName = first_name;
 		this.pwd = new_pwd;
 		this.pseudo = new_pseudo;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public String getFirstName() {
+		return this.firstName;
+	}
+	
+	public String getPseudo() {
+		return this.pseudo;
+	}
+	
+	public String getPWD() {
+		return this.pwd;
 	}
 
 	protected void setPWD(String new_pwd) {
@@ -66,12 +82,12 @@ public class User {
 	}
 	
 	public void use(ComputerStation cs) {
-		this.cs = cs;
-		this.cs.inUSE(this);
+		this.inUseCS = cs;
+		this.inUseCS.inUSE(this);
 	}
 	
 	public void deconnection() {
-		this.cs.free();
+		this.inUseCS.free();
 	}
 
 	public String toString() {
