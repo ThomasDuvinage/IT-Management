@@ -41,8 +41,8 @@ public class Connexion extends JFrame {
 	public UserSearchEngine userEngine;
 
 	public Connexion() {
-		this.setTitle("IT_Magagement App Connexion");
-		this.setSize(500, 500);
+		this.setTitle("Gestionnaire du parc informatique - Authentification");
+		this.setSize(480, 240);
 
 		this.createView();
 		
@@ -75,61 +75,57 @@ public class Connexion extends JFrame {
 		panel.setLayout(new GridBagLayout());
 
 		GridBagConstraints c = new GridBagConstraints();
+		c.insets = new Insets(20,10,0,0);  //padding between grid elements
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 20;
+		c.weightx = 0;
 		c.gridx = 0;
 		c.gridy = 0;
-		panel.add(new JLabel("name or pseudo : ",SwingConstants.RIGHT),c);
+		panel.add(new JLabel("Nom d'utilisateur :",SwingConstants.RIGHT),c);
 		
 		
 		this.userID = new JTextField();
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 10;
+		c.weightx = 1;
 		c.gridx = 1;
 		c.gridy = 0;
 		panel.add(this.userID,c);
 		
+		
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 10;
+		c.weightx = 0;
 		c.gridx = 0;
 		c.gridy = 1;
-		panel.add(new JLabel("Password : ",SwingConstants.RIGHT),c);
+		panel.add(new JLabel("Mot de passe :",SwingConstants.RIGHT),c);
 		
 		
 		this.userPWD = new JPasswordField();
 		this.userPWD.setPreferredSize(new Dimension(100, 20));
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 10;
+		c.weightx = 1;
 		c.gridx = 1;
 		c.gridy = 1;
 		panel.add(this.userPWD,c);
-		
-		
 
-		this.exit = new JButton("Exit");
+		this.exit = new JButton("Quitter");
 		this.exit.addActionListener(new ExitController());
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 20;       //reset to default
+		c.ipady = 10;       //reset to default
 		c.weighty = 1.0;   //request any extra vertical space
-		c.anchor = GridBagConstraints.PAGE_END; //bottom of space
-		c.insets = new Insets(10,0,0,0);  //top padding
-		c.gridx = 0;       //aligned with button 2
-		c.gridwidth = 1;   //2 columns wide
+		c.insets = new Insets(0, 0, 0, 0);  //top padding
+		c.gridx = 1;       //aligned with button 2
 		c.gridy = 2;       //third row
 		panel.add(this.exit, c);
 
-		this.connect = new JButton("Connect");
+		this.connect = new JButton("Connexion");
 		this.connect.addActionListener(new ConnexionController(this));
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 20;       //reset to default
+		c.ipady = 10;       //reset to default
 		c.weighty = 1.0;   //request any extra vertical space
-		c.anchor = GridBagConstraints.PAGE_END; //bottom of space
-		c.insets = new Insets(10,0,0,0);  //top padding
+		c.insets = new Insets(0, 0, 0, 50);  //top padding
 		c.gridx = 2;       //aligned with button 2
-		c.gridwidth = 1;   //2 columns wide
 		c.gridy = 2;       //third row
 		panel.add(this.connect, c);
 	}
