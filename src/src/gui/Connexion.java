@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -18,7 +19,7 @@ import searchEngine.UserSearchEngine;
  * 
  * @author thomasduvinage
  * 
- * L'objectif est de relier l'actionListener Ã  la base de donnÃ©es afin de faire des requetes directement du la BDD 
+ * L'objectif est de relier l'actionListener à la base de données afin de faire des requetes directement du la BDD 
  * et enlever l'arguement userDB dans le constructeur.
  *
  */
@@ -35,19 +36,21 @@ public class Connexion extends JFrame {
 	
 	private JTextField userID;
 	private JPasswordField userPWD;
-
-	private JPanel panel;
+	
+	private JPanel panel_credentials;
+	private JPanel panel_buttons;
 
 	public UserSearchEngine userEngine;
 
 	public Connexion() {
 		this.setTitle("Gestionnaire du parc informatique - Authentification");
-		this.setSize(480, 240);
+		this.setSize(480, 200);
 
 		this.createView();
 		
-		this.getContentPane().add(panel);
-
+		this.add(panel_credentials);
+		this.add(panel_buttons);
+		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
@@ -70,64 +73,70 @@ public class Connexion extends JFrame {
 	}
 
 	private void createView() {
-		panel = new JPanel();
-
-		panel.setLayout(new GridBagLayout());
-
-		GridBagConstraints c = new GridBagConstraints();
-		c.insets = new Insets(20,10,0,0);  //padding between grid elements
+		setLayout(new BoxLayout (this.getContentPane(), BoxLayout.Y_AXIS));
 		
+		GridBagConstraints c = new GridBagConstraints();
+		
+		// CREDENTIALS BOX //
+		panel_credentials = new JPanel();
+		panel_credentials.setLayout(new GridBagLayout());
+
+		// Username label //
+		c.insets = new Insets(10,20,0,0); //padding for username label
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 0;
 		c.gridx = 0;
 		c.gridy = 0;
-		panel.add(new JLabel("Nom d'utilisateur :",SwingConstants.RIGHT),c);
-		
+		panel_credentials.add(new JLabel("Nom d'utilisateur :",SwingConstants.RIGHT),c);
 		
 		this.userID = new JTextField();
+		c.insets = new Insets(10,20,0,50); //padding for username textbox
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
 		c.gridx = 1;
 		c.gridy = 0;
-		panel.add(this.userID,c);
+		panel_credentials.add(this.userID,c);
 		
 		
+		// Password label //
+		c.insets = new Insets(10,20,0,0); //padding for password label
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 0;
 		c.gridx = 0;
 		c.gridy = 1;
-		panel.add(new JLabel("Mot de passe :",SwingConstants.RIGHT),c);
-		
+		panel_credentials.add(new JLabel("Mot de passe :",SwingConstants.RIGHT),c);
 		
 		this.userPWD = new JPasswordField();
-		this.userPWD.setPreferredSize(new Dimension(100, 20));
+		c.insets = new Insets(10,20,0,50); //padding for password textbox
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
 		c.gridx = 1;
 		c.gridy = 1;
-		panel.add(this.userPWD,c);
+		panel_credentials.add(this.userPWD,c);
+		
+		// BUTTONS BOX //
+		panel_buttons = new JPanel();
+		panel_buttons.setLayout(new GridBagLayout());
 
 		this.exit = new JButton("Quitter");
 		this.exit.addActionListener(new ExitController());
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 10;       //reset to default
-		c.weighty = 1.0;   //request any extra vertical space
-		c.insets = new Insets(0, 0, 0, 0);  //top padding
-		c.gridx = 1;       //aligned with button 2
-		c.gridy = 2;       //third row
-		panel.add(this.exit, c);
+		c.ipady = 10; // 10 more pixels on Y axis
+		c.insets = new Insets(0, 50, 0, 50);
+		c.gridx = 0;
+		c.gridy = 0;
+		panel_buttons.add(this.exit, c);
 
 		this.connect = new JButton("Connexion");
 		this.connect.addActionListener(new ConnexionController(this));
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 10;       //reset to default
-		c.weighty = 1.0;   //request any extra vertical space
-		c.insets = new Insets(0, 0, 0, 50);  //top padding
-		c.gridx = 2;       //aligned with button 2
-		c.gridy = 2;       //third row
-		panel.add(this.connect, c);
+		c.ipady = 10; // 10 more pixels on Y axis
+		c.insets = new Insets(0, 50, 0, 50);  //top padding
+		c.gridx = 1;
+		c.gridy = 0;
+		panel_buttons.add(this.connect, c);
 	}
 	
 	public static void main(String[] args) throws Exception {
