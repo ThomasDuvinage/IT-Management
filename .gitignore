@@ -6,3 +6,4 @@ src/Doxygen/.DS_Store
 *.html
 src/.classpath
 src/.project
+/bin/

@@ -1,27 +1,34 @@
 package guiController;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
-import gui.Connexion;
-
-public class ConnexionController implements ActionListener{
-	private Connexion view;
+public class ConnexionController {
 	
-	public ConnexionController(Connexion connexion_view) {
-		this.view = connexion_view;
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		System.out.println("User ID : " + this.view.getUserID());
-		System.out.println("User PWD : " + this.view.getUserPassword());
-		
-		if(this.view.checkConnect()) {
-			System.out.println("--- Connexion Success ---");
+	@FXML
+	public TextField f_username;
+	
+	@FXML
+	public PasswordField f_password;
+	
+	public void login() {
+		// TODO: check in the database that username + password match
+		if (f_username.getText().toString().equals("admin")) {
+			if (f_password.getText().toString().equals("my_password")) {
+				System.out.println("Credentials correct");
+			}
+			else {
+				System.out.println("Invalid username or password");
+			}
 		}
 		else {
-			System.out.println("--- Connexion Failed ---");
+			System.out.println("Invalid username");
 		}
+	}
+	
+	public void quit() {
+		System.exit(0);
 	}
 }

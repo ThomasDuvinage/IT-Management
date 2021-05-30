@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import guiController.*?>
+
+<BorderPane prefHeight="170.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiController.ConnexionController">
+   <center>
+      <HBox prefHeight="294.0" prefWidth="390.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER_RIGHT" prefHeight="294.0" prefWidth="112.0" spacing="20.0">
+               <children>
+                  <Label text="Nom d'utilisateur :" />
+                  <Label text="Mot de passe :" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_RIGHT" prefHeight="294.0" prefWidth="235.0" spacing="10.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <TextField fx:id="f_username" prefHeight="25.0" prefWidth="224.0" />
+                  <PasswordField fx:id="f_password" />
+               </children>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </HBox>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="61.0" prefWidth="390.0" spacing="30.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="b_login" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="100.0" text="Connexion" />
+            <Button fx:id="b_quit" mnemonicParsing="false" onAction="#quit" prefHeight="25.0" prefWidth="100.0" text="Quitter" />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

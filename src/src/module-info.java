@@ -1,6 +1,11 @@
-module it_managment {
+module IT_Management {
+	requires javafx.controls;
+	requires javafx.fxml;
+	
 	exports User;
-	exports gui;
 	exports Component;
+	exports guiController;
 	requires java.desktop;
+	
+	opens application to javafx.graphics, javafx.fxml;
 }
