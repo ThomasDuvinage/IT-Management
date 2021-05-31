@@ -1,6 +1,7 @@
 package application;
 
 import guiController.ConnexionController;
+import guiController.MainController;
 import guiController.ScreenController;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -9,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 
 public class Main extends Application {
 	private ConnexionController connexion_controller;
+	private MainController main_controller;
+	
 	private UserDB model_users;
 	
 	private ScreenController screenController;
@@ -38,7 +41,7 @@ public class Main extends Application {
 		screenController.addScreen("connexion", connexion_file);
 		
 		FXMLLoader main_view = new FXMLLoader(getClass().getResource("main.fxml"));
-		//TODO add controller 
+		main_view.setController(main_controller);
 		screenController.addScreen("main", main_view);
 	}
 	
@@ -47,7 +50,10 @@ public class Main extends Application {
 	}
 
 	private void initializeControllers() {
+		this.main_controller = new MainController(screenController);
+		
 		this.connexion_controller = new ConnexionController(this.model_users, screenController);
+		this.connexion_controller.setNextPageController(main_controller);
 	}
 
 	public static void main(String[] args) {

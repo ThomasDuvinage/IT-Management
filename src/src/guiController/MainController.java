@@ -1,6 +1,7 @@
 package guiController;
 
 import Area.Zone;
+import User.User;
 import Area.Building;
 import Area.Classroom;
 
@@ -17,7 +18,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ComboBox;
 
 
-public class mainController implements Initializable {
+public class MainController extends Controller implements Initializable {
 	@FXML
 	private MenuItem MenuBarProfile;
 	@FXML
@@ -34,6 +35,18 @@ public class mainController implements Initializable {
 	private ComboBox<Building> ComboRoom;
 	@FXML
 	private Button ButtonAddComputerStation;
+		
+	private User main_user;
+	
+	
+	public MainController(ScreenController screen_controller) {
+		super(screen_controller);
+	}
+	
+	public void setUser(User u) {
+		this.main_user = u;
+		System.out.println(this.main_user.toString());
+	}
 
 	// Event Listener on MenuItem[#MenuBarProfile].onAction
 	@FXML

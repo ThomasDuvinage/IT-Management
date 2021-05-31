@@ -10,7 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.UserDB;
 
-public class ConnexionController implements Initializable {
+public class ConnexionController extends Controller implements Initializable {
 	@FXML
 	private TextField f_username;
 	@FXML
@@ -18,19 +18,28 @@ public class ConnexionController implements Initializable {
 
 	private UserDB model_userDB;
 	
-	private ScreenController screen_controller;
+	private MainController main_controller; // TODO discuss if it is the best solution
+	
 
 	public ConnexionController(UserDB userDB, ScreenController screen_controller) {
+		super(screen_controller);
+		
 		this.model_userDB = userDB;
-		this.screen_controller = screen_controller;
 	}
+	
+	public void setNextPageController(MainController mc) {
+		this.main_controller = mc;
+	}
+	
+	
 
 	// Event Listener on Button[#b_login].onAction
 	@FXML
 	public void login() {
-		// TODO: check in the database that username + password match
 		if (this.model_userDB.checkConnect(f_username.getText().toString(), f_password.getText().toString())) {
 			System.out.println("Credentials correct");
+			
+			this.main_controller.setUser(this.model_userDB.getUserByNamePwd(f_username.getText().toString(), f_password.getText().toString()));
 			this.screen_controller.activate("main");
 		} else {
 			System.out.println("Invalid username or password");

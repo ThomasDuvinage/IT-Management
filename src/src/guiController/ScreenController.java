@@ -8,10 +8,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class ScreenController {
-	private HashMap<String, Scene> screenMap = new HashMap<>();
+	private HashMap<String, Scene> screenMap;
 	private Stage main;
 
 	public ScreenController(Stage main) {
+		this.screenMap = new HashMap<>();
+
 		this.main = main;
 	
 	}
@@ -24,7 +26,8 @@ public class ScreenController {
 			e.printStackTrace();
 		}
 	}
-
+	
+	
 	public void removeScreen(String name) {
 		screenMap.remove(name);
 	}

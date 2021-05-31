@@ -29,6 +29,17 @@ public class UserDB {
 		this.users.add(u);
 	}
 	
+	public User getUserByNamePwd(String name_id, String pwd) {	
+		User user = null;
+		for(User u : this.users) {
+			if((u.getName().equals(name_id) || u.getPseudo().equals(name_id)) && u.getPWD().contentEquals(pwd)) {
+				user = u;
+				break;
+			}
+		}
+		return user;
+	}
+	
 	public boolean checkConnect(String name_id, String pwd) {
 		for(User u : this.users) {
 			if((u.getName().equals(name_id) || u.getPseudo().equals(name_id)) && u.getPWD().contentEquals(pwd))
