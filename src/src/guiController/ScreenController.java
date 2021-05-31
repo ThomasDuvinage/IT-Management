@@ -1,7 +1,9 @@
 package guiController;
 
+import java.io.IOException;
 import java.util.HashMap;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -13,8 +15,13 @@ public class ScreenController {
 		this.main = main;
 	}
 
-	public void addScreen(String name, Scene scene) {
-		screenMap.put(name, scene);
+	public void addScreen(String name, FXMLLoader fxml_load) {
+		try {
+			screenMap.put(name, new Scene(fxml_load.load()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void removeScreen(String name) {
