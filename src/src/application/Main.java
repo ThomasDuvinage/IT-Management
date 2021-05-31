@@ -47,7 +47,7 @@ public class Main extends Application {
 	}
 
 	private void initializeControllers() {
-		this.connexion_controller = new ConnexionController(this.model_users);
+		this.connexion_controller = new ConnexionController(this.model_users, screenController);
 	}
 
 	public static void main(String[] args) {

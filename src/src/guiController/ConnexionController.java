@@ -17,9 +17,12 @@ public class ConnexionController implements Initializable {
 	private PasswordField f_password;
 
 	private UserDB model_userDB;
+	
+	private ScreenController screen_controller;
 
-	public ConnexionController(UserDB userDB) {
+	public ConnexionController(UserDB userDB, ScreenController screen_controller) {
 		this.model_userDB = userDB;
+		this.screen_controller = screen_controller;
 	}
 
 	// Event Listener on Button[#b_login].onAction
@@ -28,6 +31,7 @@ public class ConnexionController implements Initializable {
 		// TODO: check in the database that username + password match
 		if (this.model_userDB.checkConnect(f_username.getText().toString(), f_password.getText().toString())) {
 			System.out.println("Credentials correct");
+			this.screen_controller.activate("main");
 		} else {
 			System.out.println("Invalid username or password");
 		}

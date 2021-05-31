@@ -13,6 +13,7 @@ public class ScreenController {
 
 	public ScreenController(Stage main) {
 		this.main = main;
+	
 	}
 
 	public void addScreen(String name, FXMLLoader fxml_load) {
