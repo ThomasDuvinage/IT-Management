@@ -1,19 +1,21 @@
 package guiController;
 
+import Area.Zone;
+import Area.Building;
+import Area.Classroom;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-
-import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.MenuItem;
-
 import javafx.scene.control.ComboBox;
+
 
 public class mainController implements Initializable {
 	@FXML
@@ -25,9 +27,11 @@ public class mainController implements Initializable {
 	@FXML
 	private TextField searchBar;
 	@FXML
-	private ComboBox ComboZone;
+	private ComboBox<Zone> ComboZone;
 	@FXML
-	private ComboBox ComboBuildings;
+	private ComboBox<Building> ComboBuilding;
+	@FXML
+	private ComboBox<Building> ComboRoom;
 	@FXML
 	private Button ButtonAddComputerStation;
 
@@ -70,6 +74,9 @@ public class mainController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
+		Zone a = new Zone(1);
+		Zone b = new Zone(2);
 		
+		ComboZone.getItems().addAll(a, b);
 	}
 }
