@@ -22,15 +22,15 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiController.mainController">
    <top>
       <MenuBar prefWidth="700.0" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="Compte">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Profil" />
-              <MenuItem mnemonicParsing="false" text="Déconnexion" />
-                  <MenuItem mnemonicParsing="false" text="Quitter" />
+                  <MenuItem fx:id="MenuBarProfile" mnemonicParsing="false" onAction="#seeProfile" text="Profil" />
+              <MenuItem fx:id="MenuBArLogOut" mnemonicParsing="false" onAction="#logOut" text="Déconnexion" />
+                  <MenuItem fx:id="MenuBarExit" mnemonicParsing="false" onAction="#exitApp" text="Quitter" />
             </items>
           </Menu>
         </menus>
@@ -60,9 +60,9 @@
                                     <Label text="Zone :" GridPane.rowIndex="1" />
                                     <Label text="Bâtiment :" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <Label text="Salle :" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                    <TextField promptText="Rechercher" GridPane.columnIndex="2" />
-                                    <ComboBox prefWidth="150.0" GridPane.rowIndex="2" />
-                                    <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="searchBar" promptText="Rechercher" GridPane.columnIndex="2" />
+                                    <ComboBox fx:id="ComboZone" onAction="#setBatimentChoice" prefWidth="150.0" GridPane.rowIndex="2" />
+                                    <ComboBox fx:id="ComboBuildings" onAction="#setClassrooms" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <ComboBox prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                                  </children>
                                  <VBox.margin>
@@ -92,7 +92,7 @@
                               </TreeTableView>
                               <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="680.0">
                                  <children>
-                                    <Button contentDisplay="RIGHT" mnemonicParsing="false" text="+">
+                                    <Button fx:id="ButtonAddComputerStation" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#addComputerStation" text="+">
                                        <graphic>
                                           <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
