@@ -6,6 +6,9 @@ module IT_Management {
 	exports Component;
 	exports guiController;
 	requires java.desktop;
+	requires javafx.graphics;
 	
 	opens application to javafx.graphics, javafx.fxml;
+	opens guiController to javafx.graphics, javafx.fxml;
+
 }
