@@ -22,7 +22,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiController.mainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiController.mainController">
    <top>
       <MenuBar prefWidth="700.0" BorderPane.alignment="CENTER">
         <menus>
@@ -60,10 +60,22 @@
                                     <Label text="Zone :" GridPane.rowIndex="1" />
                                     <Label text="Bâtiment :" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <Label text="Salle :" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                    <TextField fx:id="searchBar" promptText="Rechercher" GridPane.columnIndex="2" />
-                                    <ComboBox fx:id="ComboZone" onAction="#setBatimentChoice" prefWidth="150.0" GridPane.rowIndex="2" />
-                                    <ComboBox fx:id="ComboBuildings" onAction="#setClassrooms" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <ComboBox prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <TextField fx:id="searchBar" promptText="Rechercher" GridPane.columnIndex="2">
+                                       <GridPane.margin>
+                                          <Insets right="30.0" />
+                                       </GridPane.margin></TextField>
+                                    <ComboBox fx:id="ComboZone" maxWidth="1.7976931348623157E308" onAction="#setBatimentChoice" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                                       <GridPane.margin>
+                                          <Insets right="30.0" />
+                                       </GridPane.margin></ComboBox>
+                                    <ComboBox fx:id="ComboBuilding" maxWidth="1.7976931348623157E308" onAction="#setClassrooms" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                       <GridPane.margin>
+                                          <Insets right="30.0" />
+                                       </GridPane.margin></ComboBox>
+                                    <ComboBox fx:id="cb_room" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                       <GridPane.margin>
+                                          <Insets right="30.0" />
+                                       </GridPane.margin></ComboBox>
                                  </children>
                                  <VBox.margin>
                                     <Insets left="20.0" right="20.0" />
@@ -80,7 +92,7 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                               </GridPane>
-                              <TreeTableView prefHeight="200.0" prefWidth="700.0" VBox.vgrow="SOMETIMES">
+                              <TreeTableView prefWidth="700.0" VBox.vgrow="SOMETIMES">
                                 <columns>
                                   <TreeTableColumn prefWidth="428.0" text="Matériel" />
                                   <TreeTableColumn maxWidth="1000.0" prefWidth="133.0" text="Disponibilité" />
@@ -96,7 +108,7 @@
                                        <graphic>
                                           <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../img/Station.png" />
+                                                <Image url="@../../img/Station_16.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>

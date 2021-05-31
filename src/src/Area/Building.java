@@ -5,10 +5,12 @@ import java.util.ArrayList;
 
 public class Building extends Area {
 	private ArrayList<Classroom> ListClassroom;
+	private Zone parentZone;
 
-	public Building(int area_id) {
+	public Building(int area_id, Zone parentZone) {
 		super(area_id, ID.BAT);
 		this.ListClassroom = new ArrayList<Classroom>();
+		this.parentZone = parentZone;
 	}
 	
 	public void addClassroom(Classroom room) {

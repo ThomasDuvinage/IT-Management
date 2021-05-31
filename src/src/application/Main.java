@@ -18,8 +18,8 @@ public class Main extends Application {
 			screenController.addScreen("main", new Scene(FXMLLoader.load(getClass().getResource("main.fxml"))));
 			
 			screenController.activate("main");
-						
-			primaryStage.setTitle("Authentification");
+			
+			primaryStage.setTitle("Menu principal");
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

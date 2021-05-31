@@ -1,8 +1,9 @@
 package Area;
 
-enum ID{
+enum ID {
 	CLASS,
-	BAT
+	BAT,
+	ZONE,
 }
 
 public class Area {

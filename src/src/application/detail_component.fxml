@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="260.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <HBox prefHeight="294.0" prefWidth="390.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER_RIGHT" prefHeight="294.0" prefWidth="112.0" spacing="20.0">
+               <children>
+                  <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/Keyboard_64.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Occupant :" />
+                  <Label text="État :" />
+                  <Label text="Station :" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="294.0" prefWidth="235.0" spacing="20.0" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="50.0" />
+               </HBox.margin>
+               <children>
+                  <Label fx:id="l_component" text="COMPONENT_NAME">
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="l_occupant" text="ADAM Ahmet (aadam01)">
+                     <VBox.margin>
+                        <Insets top="22.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="l_state" text="En marche" />
+                  <Label fx:id="l_station" text="P365" />
+               </children>
+            </VBox>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </HBox>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="61.0" prefWidth="390.0" spacing="30.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="b_ok" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="100.0" text="OK" />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>
