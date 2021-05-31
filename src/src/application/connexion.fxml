@@ -9,9 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<?import guiController.*?>
-
-<BorderPane prefHeight="170.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiController.ConnexionController">
+<BorderPane onKeyPressed="#login" prefHeight="170.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <HBox prefHeight="294.0" prefWidth="390.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
