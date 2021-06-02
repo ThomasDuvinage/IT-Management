@@ -43,6 +43,8 @@ public class Main extends Application {
 		FXMLLoader main_view = new FXMLLoader(getClass().getResource("main.fxml"));
 		main_view.setController(main_controller);
 		screenController.addScreen("main", main_view);
+		
+		
 	}
 	
 	private void initializeModels() {
