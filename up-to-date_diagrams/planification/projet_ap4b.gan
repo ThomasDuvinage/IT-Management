@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="projet_ap4b" company="" webLink="http://" view-date="2021-04-15" view-index="0" gantt-divider-location="300" resource-divider-location="300" version="3.0.3005" locale="fr_FR">
+    <description>
+        <![CDATA[Diagramme de planification du projet de AP4B]]>
+    </description>
+    <view zooming-state="default:3" id="gantt-chart">
+        <field id="tpd3" name="Nom" width="167" order="0"/>
+        <field id="tpd4" name="Date de début" width="65" order="1"/>
+        <field id="tpd5" name="Date de fin" width="64" order="2"/>
+        <option id="color.recent">
+            <![CDATA[#000000 #999900 #99ff00 #00ff66 #ccffcc #33ff33 #003366 #3333ff #0033cc #ff3300]]>
+        </option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nom" width="210" order="0"/>
+        <field id="1" name="Rôle par défaut" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" name="Prise de connaissance du projet" color="#8cb6ce" meeting="false" start="2021-04-15" duration="10" complete="0" thirdDate="2021-05-31" thirdDate-constraint="0" expand="true"/>
+        <task id="2" name="Rédaction du cahier des charges" color="#ff3300" meeting="false" start="2021-04-29" duration="4" complete="0" thirdDate="2021-04-15" thirdDate-constraint="0" expand="true"/>
+        <task id="8" name="Analyse" color="#0033cc" meeting="false" start="2021-05-05" duration="8" complete="0" thirdDate="2021-04-15" thirdDate-constraint="0" expand="true">
+            <task id="9" name="Etude de l'existant" color="#3333ff" meeting="false" start="2021-05-05" duration="3" complete="0" thirdDate="2021-04-15" thirdDate-constraint="0" expand="true"/>
+            <task id="12" name="Spécification des besoins" color="#003366" meeting="false" start="2021-05-10" duration="5" complete="0" thirdDate="2021-04-15" thirdDate-constraint="0" expand="true"/>
+        </task>
+        <task id="17" name="Conception" color="#00ff66" meeting="false" start="2021-05-17" duration="9" complete="0" thirdDate="2021-05-20" thirdDate-constraint="0" expand="true">
+            <task id="22" name="Choix de l'architecture" color="#33ff33" meeting="false" start="2021-05-17" duration="1" complete="0" thirdDate="2021-05-03" thirdDate-constraint="0" expand="true"/>
+            <task id="23" name="Modélisation" color="#99ff00" meeting="false" start="2021-05-18" duration="8" complete="0" thirdDate="2021-05-03" thirdDate-constraint="0" expand="true"/>
+            <task id="20" name="Réalisation des maquettes" color="#ccffcc" meeting="false" start="2021-05-18" duration="8" complete="0" thirdDate="2021-05-03" thirdDate-constraint="0" expand="true"/>
+        </task>
+        <task id="24" name="Implémentation" color="#8cb6ce" meeting="false" start="2021-05-26" duration="15" complete="0" thirdDate="2021-05-14" thirdDate-constraint="0" expand="true"/>
+        <task id="42" name="Tests et corrections" color="#999900" meeting="false" start="2021-06-07" duration="6" complete="0" thirdDate="2021-05-25" thirdDate-constraint="0" expand="true"/>
+        <task id="43" name="Déploiement" color="#000000" meeting="false" start="2021-06-16" duration="1" complete="0" thirdDate="2021-05-25" thirdDate-constraint="0" expand="true"/>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+    <roles roleset-name="SoftwareDevelopment"/>
+</project>
