@@ -41,9 +41,13 @@ public class ConnexionController extends Controller implements Initializable {
 			
 			this.main_controller.setUser(this.model_userDB.getUserByNamePwd(f_username.getText().toString(), f_password.getText().toString()));
 			this.screen_controller.activate("main");
+			
+			f_username.setText(null);
+			f_password.setText(null);
 		} else {
 			System.out.println("Invalid username or password");
-		}
+			f_password.setText(null);
+		}		
 	}
 
 	// Event Listener on Button[#b_quit].onAction
