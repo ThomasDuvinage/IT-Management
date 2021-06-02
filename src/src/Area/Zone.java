@@ -1,59 +1,58 @@
 package Area;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 
 public class Zone extends Area {
-	private ArrayList<Building> ListBuilding;
+	private HashMap<String,Building> listBuildings;
 
-	public Zone(int area_id) {
-		super(area_id, ID.BAT);
-		this.ListBuilding = new ArrayList<Building>();
+	public Zone(int area_id, String name) {
+		super(area_id, ID.ZONE, name);
+		this.listBuildings = new HashMap<>();
 	}
 	
-	public void addBuilding(Building build) {
-		this.ListBuilding.add(build);
+	public void addBuilding(Building building) {
+		this.listBuildings.put(building.getName(), building);
 	}
 	
 	public Building getBuildingById(int id) {
 		
-		for( Building build : this.ListBuilding ) {
-            if(build.id == id) {
-            	return build;
+		for(Entry<String, Building> b: this.listBuildings.entrySet()) {
+            if(b.getValue().getId() == id) {
+            	return b.getValue();
             }
         } 
 		return null;
 	}
 	
+	public Building getBuildingByName(String building_name) {
+		return this.listBuildings.get(building_name);
+	}
+	
 	public ArrayList<Building> getBuildings(){
-		return this.ListBuilding;
+		ArrayList<Building> buildings = new ArrayList<>();
+		
+		for(Entry<String, Building> b: this.listBuildings.entrySet()) {
+            buildings.add(b.getValue());
+        }
+		return buildings;
 	}
 	
-	public void createNewBuildingWithCR(int nb_CR) {
-		this.createNewBuilding();
-		this.ListBuilding.get(this.ListBuilding.size()-1).createNewClassroom(nb_CR);
+	public void createNewBuilding(String building_name) {
+		this.listBuildings.put(building_name, new Building(this.listBuildings.size() + 1, this, building_name));
 	}
 	
-	public void createNewBuilding() {
-		this.ListBuilding.add(new Building(this.ListBuilding.size(), this));
-	}
-	
-	public void createNewBuilding(int nb_building) {
-		for(int i = 0; i < nb_building;i++) {
-			this.ListBuilding.add(new Building(this.ListBuilding.size(), this));
-		}
-	}
-	
-	public String toString() {
+	public String getInfo() {
 		String out = "";
 		out += "Zone ID : " + this.id + "\n";
 		
-		for( Building build : this.ListBuilding ) {
-            out += build.toString();
+		for(Entry<String, Building> b: this.listBuildings.entrySet()) {
+			out += b.getValue().toString();
             out += "\n";
         } 
 		
 		return out;
 	}
-
 }

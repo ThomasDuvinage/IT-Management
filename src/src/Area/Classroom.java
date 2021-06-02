@@ -8,8 +8,8 @@ public class Classroom extends Area {
 	private ArrayList<ComputerStation> ListComponents;
 	private Building parentBuilding;
 
-	public Classroom(int area_id, Building parentBuilding) {
-		super(area_id, ID.CLASS);
+	public Classroom(int area_id, Building parentBuilding, String class_name) {
+		super(area_id, ID.CLASS, class_name);
 		this.ListComponents = new ArrayList<ComputerStation>();
 		this.parentBuilding = parentBuilding;
 	}

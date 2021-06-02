@@ -87,9 +87,13 @@ public class MainController extends Controller implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		Zone a = new Zone(1);
-		Zone b = new Zone(2);
 		
-		ComboZone.getItems().addAll(a, b);
+		//TODO set ITManagementDB as model in order to send request to DB as this moment to complete the scheme
+		
+		Zone sevenans = new Zone(1, "Sevenans");
+		Zone belfort = new Zone(2, "Belfort");
+		Zone montbeliard = new Zone(3, "Montbéliard");
+		
+		ComboZone.getItems().addAll(sevenans, belfort, montbeliard);
 	}
 }

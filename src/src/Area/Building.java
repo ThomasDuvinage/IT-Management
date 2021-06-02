@@ -7,8 +7,8 @@ public class Building extends Area {
 	private ArrayList<Classroom> ListClassroom;
 	private Zone parentZone;
 
-	public Building(int area_id, Zone parentZone) {
-		super(area_id, ID.BAT);
+	public Building(int area_id, Zone parentZone, String building_name) {
+		super(area_id, ID.BAT, building_name);
 		this.ListClassroom = new ArrayList<Classroom>();
 		this.parentZone = parentZone;
 	}
@@ -31,21 +31,21 @@ public class Building extends Area {
 		return this.ListClassroom;
 	}
 	
+	/*
 	public void createNewClassroomWithCS(int nb_CS) {
 		this.createNewClassroom();
 		this.ListClassroom.get(this.ListClassroom.size()-1).createNewComputerStation(nb_CS);
 		
 	}
 	
-	public void createNewClassroom() {
-		this.ListClassroom.add(new Classroom(this.ListClassroom.size(), this));
-	}
 	
-	public void createNewClassroom(int nb_classroom) {
-		for(int i = 0; i < nb_classroom;i++) {
-			this.ListClassroom.add(new Classroom(this.ListClassroom.size(), this));
-		}
-	}
+	 * public void createNewClassroom() { this.ListClassroom.add(new
+	 * Classroom(this.ListClassroom.size(), this)); }
+	 * 
+	 * public void createNewClassroom(int nb_classroom) { for(int i = 0; i <
+	 * nb_classroom;i++) { this.ListClassroom.add(new
+	 * Classroom(this.ListClassroom.size(), this)); } }
+	 */
 	
 	public String toString() {
 		String out = "";
