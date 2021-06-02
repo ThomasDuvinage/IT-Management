@@ -10,6 +10,7 @@ enum Rights {
 	FULL_ACCESS, LIMITED_ACCESS
 }
 
+
 /**
  * 
  * @author GertrudeKambouKemamen, AhmetAdam, ThomasDuvinage
@@ -28,6 +29,7 @@ public class User {
 	private ComputerStation inUseCS;
 
 	protected Rights access_right;
+	protected Departement departement;
 
 	public User(String name, String first_name) {
 		this.name = name;
@@ -56,12 +58,20 @@ public class User {
 	public String getPWD() {
 		return this.pwd;
 	}
+	
+	public void setDepartement(Departement dep) {
+		this.departement = dep;
+	}
+	
+	public Departement getDepartement() {
+		return this.departement;
+	}
 
-	protected void setPWD(String new_pwd) {
+	public void setPWD(String new_pwd) {
 		this.pwd = new_pwd;
 	}
 
-	protected void setPseudo(String new_pseudo) {
+	public void setPseudo(String new_pseudo) {
 		this.pseudo = new_pseudo;
 	}
 

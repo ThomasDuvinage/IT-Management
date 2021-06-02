@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 
 import User.Administrator;
+import User.Departement;
 import User.Teacher;
 import User.User;
 
@@ -14,7 +15,7 @@ public class UserDB {
 		
 		//TODO the following are here just for the test they have to be removed !! 
 		addUser(new Administrator("admin", "admin", "admin", "admin"));
-		addUser(new Teacher("teacher", "teacher", "teacher", "teacher"));
+		addUser(new Teacher("teacher", "teacher", "teacher", "teacher", Departement.INFO));
 	}
 	
 	public UserDB(ArrayList<User> DB) {

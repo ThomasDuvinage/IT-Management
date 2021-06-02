@@ -9,9 +9,10 @@ package User;
  *
  */
 public class Teacher extends User {
-	public Teacher(String name, String first_name, String new_pwd, String new_pseudo) {
+	public Teacher(String name, String first_name, String new_pwd, String new_pseudo, Departement dep) {
 		super(name, first_name, new_pwd, new_pseudo);
 		this.access_right = Rights.LIMITED_ACCESS;
+		this.departement = dep;
 		// TODO Auto-generated constructor stub
 	}
 
