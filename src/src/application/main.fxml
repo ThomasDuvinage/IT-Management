@@ -29,7 +29,7 @@
           <Menu mnemonicParsing="false" text="Compte">
             <items>
                   <MenuItem fx:id="MenuBarProfile" mnemonicParsing="false" onAction="#seeProfile" text="Profil" />
-              <MenuItem fx:id="MenuBArLogOut" mnemonicParsing="false" onAction="#logOut" text="Déconnexion" />
+              <MenuItem fx:id="MenuBarLogOut" mnemonicParsing="false" onAction="#logOut" text="Déconnexion" />
                   <MenuItem fx:id="MenuBarExit" mnemonicParsing="false" onAction="#exitApp" text="Quitter" />
             </items>
           </Menu>
@@ -39,7 +39,7 @@
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab closable="false" text="Matériel">
+          <Tab fx:id = "materialTab" closable="false" text="Matériel">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -92,7 +92,7 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                               </GridPane>
-                              <TreeTableView prefWidth="700.0" VBox.vgrow="SOMETIMES">
+                              <TreeTableView VBox.vgrow="SOMETIMES">
                                 <columns>
                                   <TreeTableColumn prefWidth="428.0" text="Matériel" />
                                   <TreeTableColumn maxWidth="1000.0" prefWidth="133.0" text="Disponibilité" />
@@ -139,9 +139,76 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab closable="false" text="Enseignants">
+          <Tab fx:id = "teacherTab" closable="false" text="Enseignants">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="Département :" GridPane.rowIndex="1" />
+                                    <TextField fx:id="searchBar1" promptText="Rechercher" GridPane.columnIndex="2">
+                                       <GridPane.margin>
+                                          <Insets right="30.0" />
+                                       </GridPane.margin>
+                                    </TextField>
+                                    <ComboBox fx:id="ComboZone1" maxWidth="1.7976931348623157E308" onAction="#setBatimentChoice" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                                       <GridPane.margin>
+                                          <Insets right="30.0" />
+                                       </GridPane.margin>
+                                    </ComboBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="20.0" right="20.0" />
+                                 </VBox.margin>
+                              </GridPane>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                              <TreeTableView VBox.vgrow="SOMETIMES">
+                                 <columns>
+                                    <TreeTableColumn prefWidth="528.0" text="Enseigant" />
+                                    <TreeTableColumn maxWidth="1000.0" prefWidth="150.0" text="Département" />
+                                 </columns>
+                                 <columnResizePolicy>
+                                    <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TreeTableView>
+                              <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="680.0">
+                                 <children>
+                                    <Button fx:id="ButtonAddComputerStation1" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#addComputerStation" text="+">
+                                       <graphic>
+                                          <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../img/teacher_16.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
             </content>
           </Tab>
         </tabs>
