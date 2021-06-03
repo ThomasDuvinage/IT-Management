@@ -1,7 +1,10 @@
-Icons from icondes8.fr
+Icons from icones8.fr
 
 Station: https://icones8.fr/icon/62382/poste-de-travail
 Screen: https://icones8.fr/icon/43892/t%C3%A9l%C3%A9vision
 System unit: https://icones8.fr/icon/54477/serveur
 Mouse: https://icones8.fr/icon/62387/souris
 Keyboard: https://icones8.fr/icon/43767/clavier
+
+Teacher: https://icones8.fr/icon/50961/entra%C3%AEnement
+Administrator: https://icones8.fr/icon/51720/mod%C3%A9rateur-homme
