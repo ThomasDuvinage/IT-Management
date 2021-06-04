@@ -3,14 +3,12 @@ package guiController;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.UserDB;
+import guiAlert.ConnexionAlert;
 
 public class ConnexionController extends Controller implements Initializable {
 	@FXML
@@ -47,11 +45,7 @@ public class ConnexionController extends Controller implements Initializable {
 			f_username.setText(null);
 			f_password.setText(null);
 		} else {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Erreur d'authentification");
-			alert.setHeaderText(null);
-			alert.setContentText("Nom d'utilisateur ou mot de passe erroné.");
-			alert.showAndWait();
+			new ConnexionAlert();
 			f_password.setText(null);
 		}
 	}

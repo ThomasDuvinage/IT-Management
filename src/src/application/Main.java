@@ -3,7 +3,6 @@ package application;
 import guiController.ConnexionController;
 import guiController.MainController;
 import guiController.ScreenController;
-import guiAlert.LoginAlert;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.UserDB;
@@ -24,17 +23,11 @@ public class Main extends Application {
 			
 			initializeModels();
 			initializeControllers();
-			
 			setViews();
+			screenController.activate("connexion");
 			
-			new LoginAlert();
-			
-			
-			
-			//screenController.activate("connexion");
-			
-			//primaryStage.setTitle("Menu principal");
-			//primaryStage.show();
+			primaryStage.setTitle("Menu principal");
+			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
