@@ -12,6 +12,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeTableColumn?>
 <?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -39,9 +40,9 @@
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab fx:id = "materialTab" closable="false" text="Matériel">
+          <Tab fx:id="materialTab" closable="false" text="Matériel">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane>
                      <children>
                         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                            <children>
@@ -60,7 +61,7 @@
                                     <Label text="Zone :" GridPane.rowIndex="1" />
                                     <Label text="Bâtiment :" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <Label text="Salle :" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                    <TextField fx:id="searchBar" promptText="Rechercher" GridPane.columnIndex="2">
+                                    <TextField fx:id="searchBarComponent" promptText="Rechercher" GridPane.columnIndex="2">
                                        <GridPane.margin>
                                           <Insets right="30.0" />
                                        </GridPane.margin></TextField>
@@ -81,17 +82,6 @@
                                     <Insets left="20.0" right="20.0" />
                                  </VBox.margin>
                               </GridPane>
-                              <GridPane>
-                                <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                              </GridPane>
                               <TreeTableView VBox.vgrow="SOMETIMES">
                                 <columns>
                                   <TreeTableColumn prefWidth="428.0" text="Matériel" />
@@ -101,6 +91,9 @@
                                  <columnResizePolicy>
                                     <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
                               </TreeTableView>
                               <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="680.0">
                                  <children>
@@ -115,17 +108,7 @@
                                     </Button>
                                     <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <Button disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Occuper">
-                                             <HBox.margin>
-                                                <Insets left="10.0" />
-                                             </HBox.margin>
-                                          </Button>
-                                          <Button disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Lbérer">
-                                             <HBox.margin>
-                                                <Insets left="10.0" />
-                                             </HBox.margin>
-                                          </Button>
-                                          <Button disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Modifier">
+                                          <Button fx:id="b_reserve" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Réserver">
                                              <HBox.margin>
                                                 <Insets left="10.0" />
                                              </HBox.margin>
@@ -139,9 +122,46 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id = "teacherTab" closable="false" text="Enseignants">
+            <Tab text="Réservations">
+              <content>
+                <AnchorPane>
+                     <children>
+                        <VBox AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <TextField fx:id="searchBarReservation" promptText="Rechercher" GridPane.columnIndex="2">
+                                       <GridPane.margin>
+                                          <Insets right="30.0" />
+                                       </GridPane.margin>
+                                    </TextField>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="20.0" right="20.0" />
+                                 </VBox.margin>
+                              </GridPane>
+                              <TreeView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
+                                 <VBox.margin>
+                                    <Insets top="15.0" />
+                                 </VBox.margin>
+                              </TreeView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+          <Tab fx:id="teacherTab" closable="false" text="Enseignants">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane>
                      <children>
                         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                            <children>
@@ -158,7 +178,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Département :" GridPane.rowIndex="1" />
-                                    <TextField fx:id="searchBar1" promptText="Rechercher" GridPane.columnIndex="2">
+                                    <TextField fx:id="searchBarTeacher" promptText="Rechercher" GridPane.columnIndex="2">
                                        <GridPane.margin>
                                           <Insets right="30.0" />
                                        </GridPane.margin>
@@ -173,17 +193,6 @@
                                     <Insets left="20.0" right="20.0" />
                                  </VBox.margin>
                               </GridPane>
-                              <GridPane>
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                              </GridPane>
                               <TreeTableView VBox.vgrow="SOMETIMES">
                                  <columns>
                                     <TreeTableColumn prefWidth="528.0" text="Enseigant" />
@@ -192,6 +201,9 @@
                                  <columnResizePolicy>
                                     <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
                               </TreeTableView>
                               <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="680.0">
                                  <children>
