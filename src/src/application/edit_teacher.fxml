@@ -49,7 +49,7 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="61.0" prefWidth="390.0" spacing="30.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="b_ok" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="100.0" text="OK" />
+            <Button fx:id="b_ok" mnemonicParsing="false" onAction="#edit" prefHeight="25.0" prefWidth="100.0" text="OK" />
             <Button fx:id="b_cancel" mnemonicParsing="false" onAction="#quit" prefHeight="25.0" prefWidth="100.0" text="Annuler" />
          </children>
       </HBox>

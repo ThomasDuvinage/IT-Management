@@ -43,8 +43,25 @@ public class User {
 		this.pseudo = new_pseudo;
 	}
 	
+	public User(String name, String first_name, String new_pseudo, String new_pwd, Departement dep ) {
+		this.name = name;
+		this.firstName = first_name;
+		this.pwd = new_pwd;
+		this.pseudo = new_pseudo;
+		this.departement = dep;
+	}
+	
 	public String getName() {
 		return this.name;
+	}
+	
+	public void setName(String new_name) {
+		this.name = new_name;
+		
+	}
+	
+	public void setFirstName(String new_first_name) {
+		this.firstName = new_first_name;
 	}
 	
 	public String getFirstName() {
@@ -99,8 +116,8 @@ public class User {
 	public void deconnection() {
 		this.inUseCS.free();
 	}
-
-	public String toString() {
+	
+	public String getInfo() {
 		String out = "";
 
 		out += "\tUserType : " + this.access_right.toString() + "\n";
@@ -108,6 +125,10 @@ public class User {
 		out += "\tPseudo : " + this.pseudo + "\n";
 
 		return out;
+	}
+
+	public String toString() {
+		return this.name;
 	}
 
 }

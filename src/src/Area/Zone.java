@@ -2,6 +2,7 @@ package Area;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 
 
@@ -18,7 +19,6 @@ public class Zone extends Area {
 	}
 	
 	public Building getBuildingById(int id) {
-		
 		for(Entry<String, Building> b: this.listBuildings.entrySet()) {
             if(b.getValue().getId() == id) {
             	return b.getValue();
@@ -31,8 +31,8 @@ public class Zone extends Area {
 		return this.listBuildings.get(building_name);
 	}
 	
-	public ArrayList<Building> getBuildings(){
-		ArrayList<Building> buildings = new ArrayList<>();
+	public List<Building> getAllBuildings(){
+		List<Building> buildings = new ArrayList<>();
 		
 		for(Entry<String, Building> b: this.listBuildings.entrySet()) {
             buildings.add(b.getValue());
@@ -41,7 +41,7 @@ public class Zone extends Area {
 	}
 	
 	public void createNewBuilding(String building_name) {
-		this.listBuildings.put(building_name, new Building(this.listBuildings.size() + 1, this, building_name));
+		this.listBuildings.put(building_name, new Building(this.listBuildings.size(), this, building_name));
 	}
 	
 	public String getInfo() {

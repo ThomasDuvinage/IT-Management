@@ -12,7 +12,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeTableColumn?>
 <?import javafx.scene.control.TreeTableView?>
-<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -24,206 +23,234 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <MenuBar prefWidth="700.0" BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="Compte">
-            <items>
-                  <MenuItem fx:id="MenuBarProfile" mnemonicParsing="false" onAction="#seeProfile" text="Profil" />
-              <MenuItem fx:id="MenuBarLogOut" mnemonicParsing="false" onAction="#logOut" text="Déconnexion" />
-                  <MenuItem fx:id="MenuBarExit" mnemonicParsing="false" onAction="#exitApp" text="Quitter" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </top>
-   <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-        <tabs>
-          <Tab fx:id="materialTab" closable="false" text="Matériel">
-            <content>
-              <AnchorPane>
-                     <children>
-                        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <GridPane>
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                    <Label text="Zone :" GridPane.rowIndex="1" />
-                                    <Label text="Bâtiment :" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <Label text="Salle :" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                    <TextField fx:id="searchBarComponent" promptText="Rechercher" GridPane.columnIndex="2">
-                                       <GridPane.margin>
-                                          <Insets right="30.0" />
-                                       </GridPane.margin></TextField>
-                                    <ComboBox fx:id="ComboZone" maxWidth="1.7976931348623157E308" onAction="#setBatimentChoice" GridPane.halignment="LEFT" GridPane.rowIndex="2">
-                                       <GridPane.margin>
-                                          <Insets right="30.0" />
-                                       </GridPane.margin></ComboBox>
-                                    <ComboBox fx:id="ComboBuilding" maxWidth="1.7976931348623157E308" onAction="#setClassrooms" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                       <GridPane.margin>
-                                          <Insets right="30.0" />
-                                       </GridPane.margin></ComboBox>
-                                    <ComboBox fx:id="cb_room" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                                       <GridPane.margin>
-                                          <Insets right="30.0" />
-                                       </GridPane.margin></ComboBox>
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets left="20.0" right="20.0" />
-                                 </VBox.margin>
-                              </GridPane>
-                              <TreeTableView VBox.vgrow="SOMETIMES">
-                                <columns>
-                                  <TreeTableColumn prefWidth="428.0" text="Matériel" />
-                                  <TreeTableColumn maxWidth="1000.0" prefWidth="133.0" text="Disponibilité" />
-                                    <TreeTableColumn maxWidth="1000.0" prefWidth="117.0" text="État" />
-                                </columns>
-                                 <columnResizePolicy>
-                                    <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                                 <VBox.margin>
-                                    <Insets top="20.0" />
-                                 </VBox.margin>
-                              </TreeTableView>
-                              <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="680.0">
-                                 <children>
-                                    <Button fx:id="ButtonAddComputerStation" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#addComputerStation" text="+">
-                                       <graphic>
-                                          <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../img/Station_16.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </Button>
-                                    <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Button fx:id="b_reserve" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Réserver">
-                                             <HBox.margin>
-                                                <Insets left="10.0" />
-                                             </HBox.margin>
-                                          </Button>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-            <Tab text="Réservations">
-              <content>
-                <AnchorPane>
-                     <children>
-                        <VBox AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <GridPane>
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                                 <children>
-                                    <TextField fx:id="searchBarReservation" promptText="Rechercher" GridPane.columnIndex="2">
-                                       <GridPane.margin>
-                                          <Insets right="30.0" />
-                                       </GridPane.margin>
-                                    </TextField>
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets left="20.0" right="20.0" />
-                                 </VBox.margin>
-                              </GridPane>
-                              <TreeView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
-                                 <VBox.margin>
-                                    <Insets top="15.0" />
-                                 </VBox.margin>
-                              </TreeView>
-                           </children>
-                        </VBox>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
-          <Tab fx:id="teacherTab" closable="false" text="Enseignants">
-            <content>
-              <AnchorPane>
-                     <children>
-                        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <GridPane>
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                                 <children>
-                                    <Label text="Département :" GridPane.rowIndex="1" />
-                                    <TextField fx:id="searchBarTeacher" promptText="Rechercher" GridPane.columnIndex="2">
-                                       <GridPane.margin>
-                                          <Insets right="30.0" />
-                                       </GridPane.margin>
-                                    </TextField>
-                                    <ComboBox fx:id="ComboZone1" maxWidth="1.7976931348623157E308" onAction="#setBatimentChoice" GridPane.halignment="LEFT" GridPane.rowIndex="2">
-                                       <GridPane.margin>
-                                          <Insets right="30.0" />
-                                       </GridPane.margin>
-                                    </ComboBox>
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets left="20.0" right="20.0" />
-                                 </VBox.margin>
-                              </GridPane>
-                              <TreeTableView VBox.vgrow="SOMETIMES">
-                                 <columns>
-                                    <TreeTableColumn prefWidth="528.0" text="Enseigant" />
-                                    <TreeTableColumn maxWidth="1000.0" prefWidth="150.0" text="Département" />
-                                 </columns>
-                                 <columnResizePolicy>
-                                    <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                                 <VBox.margin>
-                                    <Insets top="20.0" />
-                                 </VBox.margin>
-                              </TreeTableView>
-                              <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="680.0">
-                                 <children>
-                                    <Button fx:id="ButtonAddComputerStation1" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#addComputerStation" text="+">
-                                       <graphic>
-                                          <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../img/teacher_16.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
-   </center>
+	<top>
+		<MenuBar prefWidth="700.0" BorderPane.alignment="CENTER">
+			<menus>
+				<Menu mnemonicParsing="false" text="Compte">
+					<items>
+						<MenuItem fx:id="MenuBarProfile" mnemonicParsing="false" onAction="#seeProfile" text="Profil" />
+						<MenuItem fx:id="MenuBarLogOut" mnemonicParsing="false" onAction="#logOut" text="Déconnexion" />
+						<MenuItem fx:id="MenuBarExit" mnemonicParsing="false" onAction="#exitApp" text="Quitter" />
+					</items>
+				</Menu>
+			</menus>
+		</MenuBar>
+	</top>
+	<center>
+		<TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+			<tabs>
+				<Tab fx:id="materialTab" closable="false" text="Matériel">
+					<content>
+						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+							<children>
+								<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+									<children>
+										<GridPane>
+											<columnConstraints>
+												<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+												<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+												<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+											</columnConstraints>
+											<rowConstraints>
+												<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+												<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+												<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+											</rowConstraints>
+											<children>
+												<Label text="Zone :" GridPane.rowIndex="1" />
+												<Label text="Bâtiment :" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+												<Label text="Salle :" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+												<TextField fx:id="searchBarComponent" promptText="Rechercher" GridPane.columnIndex="2">
+													<GridPane.margin>
+														<Insets right="30.0" />
+													</GridPane.margin>
+												</TextField>
+												<ComboBox fx:id="ComboZone" maxWidth="1.7976931348623157E308" onAction="#setBatimentChoice" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+													<GridPane.margin>
+														<Insets right="30.0" />
+													</GridPane.margin>
+												</ComboBox>
+												<ComboBox fx:id="ComboBuilding" disable="true" maxWidth="1.7976931348623157E308" onAction="#setClassrooms" GridPane.columnIndex="1" GridPane.rowIndex="2">
+													<GridPane.margin>
+														<Insets right="30.0" />
+													</GridPane.margin>
+												</ComboBox>
+												<ComboBox fx:id="ComboRoom" disable="true" maxWidth="1.7976931348623157E308" onAction="#getComputerStationsClassroom" GridPane.columnIndex="2" GridPane.rowIndex="2">
+													<GridPane.margin>
+														<Insets right="30.0" />
+													</GridPane.margin>
+												</ComboBox>
+											</children>
+											<VBox.margin>
+												<Insets left="20.0" right="20.0" />
+											</VBox.margin>
+										</GridPane>
+										<GridPane>
+											<columnConstraints>
+												<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+												<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+												<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+												<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+											</columnConstraints>
+											<rowConstraints>
+												<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+											</rowConstraints>
+										</GridPane>
+										<TreeTableView fx:id="TreeTableMaterial" VBox.vgrow="SOMETIMES">
+											<columns>
+												<TreeTableColumn fx:id="componentNameColumn" prefWidth="428.0" text="Matériel" />
+												<TreeTableColumn fx:id="componentAccesibilityColumn" maxWidth="1000.0" prefWidth="133.0" text="Disponibilité" />
+												<TreeTableColumn fx:id="componentStateColumn" maxWidth="1000.0" prefWidth="117.0" text="État" />
+											</columns>
+											<columnResizePolicy>
+												<TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+											</columnResizePolicy>
+										</TreeTableView>
+										<HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="680.0">
+											<children>
+												<Button fx:id="ButtonAddComputerStation" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#addComputerStation" text="+">
+													<graphic>
+														<ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+															<image>
+																<Image url="@../../img/Station_16.png" />
+															</image>
+														</ImageView>
+													</graphic>
+												</Button>
+												<HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+													<children>
+														<Button fx:id="b_reserve" disable="true" mnemonicParsing="false" onAction="#computerStationBook" prefHeight="25.0" prefWidth="65.0" text="Réserver">
+															<HBox.margin>
+																<Insets left="10.0" />
+															</HBox.margin>
+														</Button>
+													</children>
+												</HBox>
+											</children>
+										</HBox>
+									</children>
+								</VBox>
+							</children>
+						</AnchorPane>
+					</content>
+				</Tab>
+				<Tab fx:id="reservationTab" closable="false" text="Réservation">
+					<content>
+						<AnchorPane>
+							<children>
+								<VBox AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+									<children>
+										<GridPane>
+											<columnConstraints>
+												<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+												<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+												<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+											</columnConstraints>
+											<rowConstraints>
+												<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+											</rowConstraints>
+											<children>
+												<TextField fx:id="searchBarReservation" promptText="Rechercher" GridPane.columnIndex="2">
+													<GridPane.margin>
+														<Insets right="30.0" />
+													</GridPane.margin>
+												</TextField>
+											</children>
+											<VBox.margin>
+												<Insets left="20.0" right="20.0" />
+											</VBox.margin>
+										</GridPane>
+										<TreeTableView fx:id="TreeTableReservation" VBox.vgrow="SOMETIMES">
+											<columns>
+												<TreeTableColumn prefWidth="528.0" text="Matériel" />
+												<TreeTableColumn maxWidth="1000.0" prefWidth="150.0" text="Date de réservation" />
+											</columns>
+											<columnResizePolicy>
+												<TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+											</columnResizePolicy>
+										</TreeTableView>
+									</children>
+								</VBox>
+							</children>
+						</AnchorPane>
+					</content>
+				</Tab>
+
+				<Tab fx:id="teacherTab" closable="false" text="Enseignants">
+					<content>
+						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+							<children>
+								<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+									<children>
+										<GridPane>
+											<columnConstraints>
+												<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+												<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+												<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+											</columnConstraints>
+											<rowConstraints>
+												<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+												<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+												<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+											</rowConstraints>
+											<children>
+												<Label text="Département :" GridPane.rowIndex="1" />
+												<TextField fx:id="searchBarTeacher" promptText="Rechercher" GridPane.columnIndex="2">
+													<GridPane.margin>
+														<Insets right="30.0" />
+													</GridPane.margin>
+												</TextField>
+												<ComboBox fx:id="ComboZoneUserDepartement" maxWidth="1.7976931348623157E308" onAction="#setUserPerDepartement" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+													<GridPane.margin>
+														<Insets right="30.0" />
+													</GridPane.margin>
+												</ComboBox>
+											</children>
+											<VBox.margin>
+												<Insets left="20.0" right="20.0" />
+											</VBox.margin>
+										</GridPane>
+										<GridPane>
+											<columnConstraints>
+												<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+												<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+												<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+												<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+											</columnConstraints>
+											<rowConstraints>
+												<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+											</rowConstraints>
+										</GridPane>
+										<TreeTableView fx:id="TreeTableTeachers" VBox.vgrow="SOMETIMES">
+											<columns>
+												<TreeTableColumn fx:id="teacherFirstNameColumn" maxWidth="4000.0" prefWidth="293.0" text="Nom Enseigant" />
+												<TreeTableColumn fx:id="teacherNameColumn" maxWidth="4000.0" prefWidth="317.0" text="Prénom Enseigant" />
+												<TreeTableColumn fx:id="teacherDepartementColumn" maxWidth="1000.0" prefWidth="134.0" text="Département" />
+											</columns>
+											<columnResizePolicy>
+												<TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+											</columnResizePolicy>
+										</TreeTableView>
+										<HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="680.0">
+											<children>
+												<Button fx:id="buttonAddTeacher" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#addTeacher" text="+">
+													<graphic>
+														<ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+															<image>
+																<Image url="@../../img/teacher_16.png" />
+															</image>
+														</ImageView>
+													</graphic>
+												</Button>
+											</children>
+										</HBox>
+									</children>
+								</VBox>
+							</children>
+						</AnchorPane>
+					</content>
+				</Tab>
+			</tabs>
+		</TabPane>
+	</center>
 </BorderPane>

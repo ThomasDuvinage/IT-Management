@@ -33,7 +33,7 @@ public class ScreenController {
 	}
 
 	public void activate(String name) {		
-		screenMap.get(name).getStylesheets().add(this.getClass().getResource("/application/application.css").toExternalForm());
+		//screenMap.get(name).getStylesheets().add(this.getClass().getResource("/application/application.css").toExternalForm());
 		main.setTitle(name);
 		main.setScene(screenMap.get(name));
 	}

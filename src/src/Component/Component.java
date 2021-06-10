@@ -1,29 +1,6 @@
 package Component;
 
 /**
- * @brief State of the component 
- *
- */
-enum State{
-	GOOD,
-	TO_BE_REPARED,
-	HS
-}
-
-
-/**
- * @brief Type of the component 
- *
- */
-enum ComponentType{
-	MOUSE,
-	SCREEN,
-	KEYBOARD,
-	SYSTEM_UNIT
-}
-
-
-/**
  * 
  * @author GertrudeKambouKemamen, AhmetAdam, ThomasDuvinage
  * 
@@ -31,30 +8,55 @@ enum ComponentType{
  *
  */
 public class Component {
-	private String id; // TODO build depending on the building, classroom name and number of computer in the classroom
-	public State state;
+	private String name;
+	protected int id;
 	
+	protected State state;
 	protected ComponentType type; // TODO set it in each component child constructor 
+	protected Availability access;
+	
+	private ComputerStation parentComputerStation;
 	
 	public Component(int n_id) {
 		this.state = State.GOOD; //TODO set 
-		this.id = Integer.toString(n_id); // TODO Bat(A/B/C/...)-102-(CS/K/M/S/SU)102
+		this.access = Availability.FREE;
+		this.id = n_id;
 	}
 	
-	public String getBat() {
-		return this.id.split("-")[0];
+	public void setParentComputerStation(ComputerStation parentCS) {
+		this.parentComputerStation = parentCS;
 	}
 	
-	public String getClassroom() {
-		return this.id.split("-")[1];
+	public void setState(State new_state) {
+		this.state = new_state;
 	}
 	
-	public String getId() {
+	public State getState() {
+		return this.state;
+	}
+	
+	protected void setName() {
+		this.name = this.type.toString() + this.id;
+	}
+	
+	public Availability getAccess() {
+		return this.access;
+	}
+	
+	public int getId() {
 		return this.id;
 	}
 	
-	public void setId(String new_id) {
+	public String getName() {
+		return this.name;
+	}
+	
+	public void setId(int new_id) {
 		this.id = new_id;
+	}
+	
+	public ComponentType getType() {
+		return this.type;
 	}
 	
 	

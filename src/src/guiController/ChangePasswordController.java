@@ -3,9 +3,11 @@ package guiController;
 import User.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class ChangePasswordController extends Controller {
@@ -27,6 +29,13 @@ public class ChangePasswordController extends Controller {
 		this.main_user = user;
 	}
 	
+   private void showAlertErrorPWD(String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(message);
+ 
+        alert.showAndWait();
+    }
+	
 	// Event Listener on Button[#b_ok].onAction
 	@FXML
 	public void validate(ActionEvent event) {
@@ -40,13 +49,11 @@ public class ChangePasswordController extends Controller {
 				f_password_confirm.setText(null);
 			}
 			else {
-				//TODO change error text
-				System.out.println("ChangePassWordController : Erreur de nouveau mot de passe");
+				this.showAlertErrorPWD("Erreur de nouveau mot de passe");
 			}
 		}
 		else {
-			//TODO change error text
-			System.out.println("ChangePassWordController : Erreur de mot de passe actuel");
+			this.showAlertErrorPWD("Erreur de mot de passe actuel");
 		}
 	}
 	// Event Listener on Button[#b_cancel].onAction

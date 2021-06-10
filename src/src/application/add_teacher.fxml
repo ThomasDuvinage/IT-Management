@@ -52,9 +52,9 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="61.0" prefWidth="390.0" spacing="30.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="b_add" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="100.0" text="Ajouter" />
+            <Button fx:id="b_add" mnemonicParsing="false" onAction="#add" prefHeight="25.0" prefWidth="100.0" text="Ajouter" />
             <Button fx:id="b_cancel" mnemonicParsing="false" onAction="#quit" prefHeight="25.0" prefWidth="100.0" text="Annuler" />
          </children>
       </HBox>
    </bottom>
-</BorderPane>s
+</BorderPane>

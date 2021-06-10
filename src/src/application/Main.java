@@ -5,6 +5,7 @@ import guiController.MainController;
 import guiController.ScreenController;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import model.ITManagementDB;
 import model.UserDB;
 import javafx.fxml.FXMLLoader;
 
@@ -13,17 +14,20 @@ public class Main extends Application {
 	private MainController main_controller;
 	
 	private UserDB model_users;
+	private ITManagementDB model_it_bdd;
 	
 	private ScreenController screenController;
 
 	@Override
 	public void start(Stage primaryStage) {
-		try {			
+		try {
 			screenController = new ScreenController(primaryStage);
 			
 			initializeModels();
 			initializeControllers();
+			
 			setViews();
+			
 			screenController.activate("connexion");
 			
 			primaryStage.setTitle("Menu principal");
@@ -45,16 +49,17 @@ public class Main extends Application {
 	
 	private void initializeModels() {
 		this.model_users = new UserDB();
+		this.model_it_bdd = new ITManagementDB();
 	}
 
 	private void initializeControllers() {
-		this.main_controller = new MainController(screenController);
+		this.main_controller = new MainController(screenController, model_it_bdd, model_users);
 		
 		this.connexion_controller = new ConnexionController(this.model_users, screenController);
 		this.connexion_controller.setNextPageController(main_controller);
 	}
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+	/*
+	 * public static void main(String[] args) { launch(args); }
+	 */
 }

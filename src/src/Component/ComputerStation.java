@@ -5,24 +5,6 @@ import java.util.ArrayList;
 import Area.Classroom;
 import User.User;
 
-/**
- * 
- * @brief Enumeration to define the state of the computer station. The computer
- *        station's state is updated depending on its components states.
- *
- */
-enum ComputerStationState {
-	OUT_OF_SERVICE, IN_SERVICE
-}
-
-/**
- * @brief Accessibility of the component 
- *
- */
-enum Availability{
-	FREE,
-	IN_USE
-}
 
 /**
  * TODO
@@ -40,24 +22,22 @@ enum Availability{
  *
  */
 
-public class ComputerStation {
-	private int id;
-	private ComputerStationState state;
+public class ComputerStation extends Component {
 	private ArrayList<Component> ListComponent;
 	private Classroom parentClassroom;
 	
 	private User user;
-	
-	protected Availability access;
 
 	public ComputerStation(int id, Classroom parentClassroom) {
-		this.id = id;
+		super(id);
 		this.ListComponent = new ArrayList<Component>();
 		setComputerStation();
 		this.parentClassroom = parentClassroom;
 		
-		this.state = ComputerStationState.IN_SERVICE;
-		this.access = Availability.FREE; //TODO set 
+		this.state = State.GOOD;
+		this.type = ComponentType.COMPUTER_STATION;
+		
+		this.setName();
 	}
 	
 	private void setComputerStation() {
@@ -70,6 +50,11 @@ public class ComputerStation {
 	public void inUSE(User u) {
 		this.user = u;
 		this.access = Availability.IN_USE;
+		
+	}
+	
+	public User getUser() {
+		return this.user;
 	}
 	
 	public void free() {
@@ -91,18 +76,30 @@ public class ComputerStation {
 	public void addNewComponent(ComponentType type) {
 		switch (type) {
 		case MOUSE:
-			this.ListComponent.add(new Mouse(this.ListComponent.size()));
+			Mouse mouse = new Mouse(this.id);
+			mouse.setParentComputerStation(this);
+			this.ListComponent.add(mouse);
 			break;
 		case SCREEN:
-			this.ListComponent.add(new Screen(this.ListComponent.size()));
+			Screen screen = new Screen(this.id);
+			screen.setParentComputerStation(this);
+			this.ListComponent.add(screen);
 			break;
 		case KEYBOARD:
-			this.ListComponent.add(new Keyboard(this.ListComponent.size()));
+			Keyboard keyboard = new Keyboard(this.id);
+			keyboard.setParentComputerStation(this);
+			this.ListComponent.add(keyboard);
 			break;
 		case SYSTEM_UNIT:
-			this.ListComponent.add(new SystemUnit(this.ListComponent.size()));
+			SystemUnit system_unit = new SystemUnit(this.id);
+			system_unit.setParentComputerStation(this);
+			this.ListComponent.add(system_unit);
 			break;
 		}
+	}
+	
+	public ArrayList<Component> getComponents(){
+		return this.ListComponent;
 	}
 
 	public void addComponent(Component c) {
@@ -120,8 +117,8 @@ public class ComputerStation {
 
 	public void updateState() {
 		for (int i = 0; i < ListComponent.size(); i++) {
-			if (ListComponent.get(i).state == State.HS || ListComponent.get(i).state == State.TO_BE_REPARED) {
-				this.state = ComputerStationState.OUT_OF_SERVICE;
+			if (ListComponent.get(i).getState() == State.HS || ListComponent.get(i).getState() == State.TO_BE_REPARED) {
+				this.state = State.HS;
 			}
 		}
 	}
