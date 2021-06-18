@@ -37,7 +37,7 @@
                         <Insets top="30.0" />
                      </VBox.margin>
                   </Label>
-                  <DatePicker fx:id="dp_occpuy_date" maxWidth="1.7976931348623157E308">
+                  <DatePicker fx:id="dp_occpuy_date" editable="false" maxWidth="1.7976931348623157E308">
                      <VBox.margin>
                         <Insets top="25.0" />
                      </VBox.margin>

@@ -11,6 +11,11 @@ public class SystemUnit extends Component {
 		this.ip_adress = "192.168.1.0"; // TODO to be change or define by argument in constructor
 	}
 	
+	@Override
+	public String getImage(int size) {
+		return "System_unit_" + size + ".png";
+	}
+	
 	public String toString() {
 		String out = "";
 		out += "\tComponent ID : " + this.getId() + "\n";

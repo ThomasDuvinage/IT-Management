@@ -36,9 +36,9 @@ public class ConnexionController extends Controller implements Initializable {
 	
    private void showAlertErrorConnexion() {
         Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Information connexion");
+        alert.setTitle("Erreur de connexion");
  
-        alert.setHeaderText("Login or password incorrect");
+        alert.setHeaderText("Identifiant ou mot de passe erroné.");
  
         alert.showAndWait();
     }

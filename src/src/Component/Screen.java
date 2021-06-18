@@ -6,4 +6,9 @@ public class Screen extends Component {
 		this.type = ComponentType.SCREEN;
 		this.setName();
 	}
+	
+	@Override
+	public String getImage(int size) {
+		return "Screen_" + size + ".png";
+	}
 }

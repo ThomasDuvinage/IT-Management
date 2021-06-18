@@ -1,4 +1,7 @@
+/Area/
+/Component/
+/User/
+/application/
 /guiController/
 /model/
-/application/
-/Component/
+/module-info.class

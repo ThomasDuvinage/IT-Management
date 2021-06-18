@@ -22,6 +22,7 @@ public class Classroom extends Area {
 	}
 		
 	public void addComputerStation(ComputerStation cmp) {
+		cmp.setParentClassroom(this);
 		this.ListComponents.add(cmp);
 	}
 	

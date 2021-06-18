@@ -27,13 +27,15 @@ public class AddStationController extends Controller implements Initializable {
 	private Button b_cancel;
 	
 	private ITManagementDB model_it_bdd;
+	private MainController main_controller;
 	private String selected_zone;
 	private String selected_building;
 	private String selected_classroom;
 
-	public AddStationController(ScreenController screen_controller,ITManagementDB it_bdd) {
+	public AddStationController(ScreenController screen_controller, MainController main, ITManagementDB it_bdd) {
 		super(screen_controller);
 		this.model_it_bdd = it_bdd;
+		this.main_controller = main;
 		
 		this.selected_building = null;
 		this.selected_classroom = null;
@@ -50,36 +52,82 @@ public class AddStationController extends Controller implements Initializable {
 	// Event Listener on ComboBox[#ComboZone].onAction
 	@FXML
 	public void setBatimentChoice(ActionEvent event) {
-		this.selected_zone = ComboZone.getSelectionModel().getSelectedItem().getName();
-		this.selected_building = null;
-
-		ComboBuilding.getItems().setAll(this.model_it_bdd.getBuildingByZone(this.selected_zone));
-
+		if (ComboZone.getSelectionModel().getSelectedItem() == null) {
+			if (this.selected_zone != null) {
+				this.selected_zone = null;
+				this.selected_building = null;
+				this.selected_classroom = null;
+				
+				ComboBuilding.getSelectionModel().clearSelection();
+				ComboRoom.getSelectionModel().clearSelection();
+				
+				ComboBuilding.setDisable(true);
+				ComboRoom.setDisable(true);
+			}
+		}
+		else {
+			this.selected_zone = ComboZone.getSelectionModel().getSelectedItem().getName();
+			this.selected_building = null;
+			this.selected_classroom = null;
+			
+			//ComboBuilding.getSelectionModel().clearSelection();
+			ComboRoom.getSelectionModel().clearSelection();
+	
+			ComboBuilding.getItems().setAll(this.model_it_bdd.getBuildingByZone(this.selected_zone));
+			ComboBuilding.getItems().add(null);
+			ComboBuilding.setDisable(false);
+			ComboRoom.setDisable(true);
+		}
+		this.b_add.setDisable(true);
 	}
 
 	// Event Listener on ComboBox[#ComboBuildings].onAction
 	@FXML
 	public void setClassrooms(ActionEvent event) {
-		this.selected_building = ComboBuilding.getSelectionModel().getSelectedItem().getName();
-		this.selected_classroom = null;
-
-		ComboRoom.getItems().setAll(this.model_it_bdd.getClassroomsByBuildingName(this.selected_zone, this.selected_building));
-
+		if (ComboBuilding.getSelectionModel().getSelectedItem() == null) {
+			if (this.selected_building != null) {
+				this.selected_building = null;
+				this.selected_classroom = null;
+				
+				ComboRoom.getSelectionModel().clearSelection();
+				ComboRoom.setDisable(true);
+			}
+		}
+		else {
+			if (ComboBuilding.getSelectionModel().getSelectedItem().getName() != this.selected_building) {
+				this.selected_building = ComboBuilding.getSelectionModel().getSelectedItem().getName();
+				this.selected_classroom = null;
+				
+				//ComboRoom.getSelectionModel().clearSelection();
+				ComboRoom.getItems().setAll(this.model_it_bdd.getClassroomsByBuildingName(this.selected_zone, this.selected_building));
+				ComboRoom.getItems().add(null);
+				ComboRoom.setDisable(false);
+			}
+		}
+		this.b_add.setDisable(true);
 	}
 
 	@FXML
 	public void getClassroom(ActionEvent event) {
-		this.selected_classroom = ComboRoom.getSelectionModel().getSelectedItem().getName();
 		
-		if(selected_classroom != null) {
-			this.b_add.setDisable(false);
+		if (ComboRoom.getSelectionModel().getSelectedItem() == null) {
+			if (this.selected_classroom != null) {
+				this.selected_classroom = null;
+				this.b_add.setDisable(true);
+			}
+		}
+		else {
+			if (ComboRoom.getSelectionModel().getSelectedItem().getName() != this.selected_classroom) {
+				this.selected_classroom = ComboRoom.getSelectionModel().getSelectedItem().getName();
+				this.b_add.setDisable(false);
+			}
 		}
 	}
 	
 	// Event Listener on Button[#b_add].onAction
 	@FXML
 	public void add_component(ActionEvent event) {
-		if(selected_classroom != null && selected_building != null && selected_zone != null) {
+		if (selected_classroom != null && selected_building != null && selected_zone != null) {
 			this.model_it_bdd.addComputerStation(selected_zone, selected_building, selected_classroom);
 			
 			this.selected_building = null;
@@ -90,13 +138,14 @@ public class AddStationController extends Controller implements Initializable {
 			// Quit page
 			Stage stage = (Stage) b_cancel.getScene().getWindow();
 			stage.close();
+			
+			this.main_controller.updateTreeTable();
 		}
 	}
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ComboZone.getItems().addAll(this.model_it_bdd.getAllZone());
-		this.b_add.setDisable(true);
-		
+		ComboZone.getItems().add(null);
 	}
 }

@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import Area.Area;
 import Area.Building;
 import Area.Classroom;
 import Area.Zone;
@@ -16,26 +15,27 @@ import Component.ComputerStation;
 import Component.State;
 import User.Departement;
 import User.User;
-import application.Booking;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -63,8 +63,6 @@ public class MainController extends Controller implements Initializable {
 	@FXML
 	private Button b_reserve;
 	@FXML
-	private TabPane tab_pane;
-	@FXML
 	private Tab materialTab;
 	@FXML
 	private Tab reservationTab;
@@ -81,7 +79,7 @@ public class MainController extends Controller implements Initializable {
 	@FXML
 	private TextField searchBarReservation;
 	@FXML
-	private TreeView TreeReservation;
+	private TreeTableView TreeTableReservation;
 	@FXML
 	private TextField searchBarTeacher;
 	@FXML
@@ -103,19 +101,14 @@ public class MainController extends Controller implements Initializable {
 	private UserDB model_user_bdd;
 
 	private ContextMenu contextMenu;
-	private ContextMenu componentContextMenu;
-	private ContextMenu bookingContextMenu;
-	private ContextMenu bookingStationContextMenu;
 	private ContextMenu teacherContextMenu;
 
 	private String selected_zone;
 	private String selected_building;
 	private String selected_classroom;
-	private ComputerStation selected_cs;
-	private Component selected_component;
-	private Booking selected_booking;
-	private ComputerStation selected_station_booking;
-	private User selected_user;
+	private int selected_cs_id;
+
+	private String name_selected_teacher;
 
 	public MainController(ScreenController screen_controller, ITManagementDB itBDD, UserDB userBDD) {
 		super(screen_controller);
@@ -129,24 +122,13 @@ public class MainController extends Controller implements Initializable {
 
 	public void setUser(User u) {
 		this.main_user = u;
-		this.initializeBookingTable();
 		System.out.println(this.main_user.toString());
-		
 
 		// Hide / Show teacher tab depending on user rights
 		if (main_user.isTeacher()) {
-			if (tab_pane.getTabs().contains(teacherTab)) {
-				tab_pane.getTabs().remove(teacherTab);
-			}
-			this.ButtonAddComputerStation.setVisible(false);
-		}
-		else {
-			if (main_user.isAdmin()) {
-				if (!tab_pane.getTabs().contains(teacherTab)) {
-					tab_pane.getTabs().add(teacherTab);
-				}
-				this.ButtonAddComputerStation.setVisible(true);
-			}
+			this.teacherTab.setDisable(true);
+			this.reservationTab.setDisable(true);
+			this.ButtonAddComputerStation.setDisable(true);
 		}
 	}
 
@@ -254,6 +236,7 @@ public class MainController extends Controller implements Initializable {
 		else {
 			if (ComboRoom.getSelectionModel().getSelectedItem().getName() != this.selected_classroom) {
 				this.selected_classroom = ComboRoom.getSelectionModel().getSelectedItem().getName();
+				this.selected_cs_id = 0;
 				
 				this.updateTreeTable();
 			}
@@ -301,7 +284,7 @@ public class MainController extends Controller implements Initializable {
 	public void computerStationBook(ActionEvent event) throws IOException {
 		FXMLLoader book_station_loader = new FXMLLoader();
 		book_station_loader.setLocation(getClass().getResource("/application/occupy_station.fxml"));
-		book_station_loader.setController(new BookComputerStationController(this.screen_controller, this.model_it_bdd, this.main_user, this.selected_cs));
+		book_station_loader.setController(new BookComputerStationController(this.screen_controller));
 
 		Scene add_station_scene = new Scene(book_station_loader.load());
 		Stage stage = new Stage();
@@ -309,7 +292,7 @@ public class MainController extends Controller implements Initializable {
 		stage.setScene(add_station_scene);
 		stage.showAndWait();
 
-		this.updateBookingTable();
+		this.updateTreeTable();
 	}
 
 	private void initializeContextMenu() {
@@ -323,14 +306,20 @@ public class MainController extends Controller implements Initializable {
 			@Override
 			public void handle(ActionEvent arg0) {
 				System.out.println("Ajouter une unité centrale");
-				model_it_bdd.addComponentToComputerStation(
-					ComponentType.SYSTEM_UNIT,
-					selected_cs.getParentClassroom().getParentBuilding().getParentZone().getName(),
-					selected_cs.getParentClassroom().getParentBuilding().getName(),
-					selected_cs.getParentClassroom().getName(),
-					selected_cs.getId()
-				);
-				updateTreeTable();
+
+				if (selected_zone != null && selected_building != null && selected_classroom != null) {
+					model_it_bdd.addComponentToComputerStation(ComponentType.SYSTEM_UNIT, selected_zone,
+							selected_building, selected_classroom, selected_cs_id);
+					updateTreeTable();
+				} else {
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Information ajout matériel");
+
+					alert.setHeaderText("Information :");
+					alert.setContentText("Merci de sélectionner la zone, le batiment et la classe");
+
+					alert.showAndWait();
+				}
 			}
 		});
 
@@ -339,15 +328,22 @@ public class MainController extends Controller implements Initializable {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				System.out.println("Ajouter un écran");
-				model_it_bdd.addComponentToComputerStation(
-					ComponentType.SCREEN,
-					selected_cs.getParentClassroom().getParentBuilding().getParentZone().getName(),
-					selected_cs.getParentClassroom().getParentBuilding().getName(),
-					selected_cs.getParentClassroom().getName(),
-					selected_cs.getId()
-				);
-				updateTreeTable();
+				System.out.println("Ajouter un Ã©cran");
+
+				if (selected_zone != null && selected_building != null && selected_classroom != null) {
+					model_it_bdd.addComponentToComputerStation(ComponentType.SCREEN, selected_zone, selected_building,
+							selected_classroom, selected_cs_id);
+					updateTreeTable();
+				} else {
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Information ajout matériel");
+
+					alert.setHeaderText("Information :");
+					alert.setContentText("Merci de sélectionner la zone, le batiment et la classe");
+
+					alert.showAndWait();
+				}
+
 			}
 		});
 
@@ -357,14 +353,21 @@ public class MainController extends Controller implements Initializable {
 			@Override
 			public void handle(ActionEvent arg0) {
 				System.out.println("Ajouter une souris");
-				model_it_bdd.addComponentToComputerStation(
-					ComponentType.MOUSE,
-					selected_cs.getParentClassroom().getParentBuilding().getParentZone().getName(),
-					selected_cs.getParentClassroom().getParentBuilding().getName(),
-					selected_cs.getParentClassroom().getName(),
-					selected_cs.getId()
-				);
-				updateTreeTable();
+
+				if (selected_zone != null && selected_building != null && selected_classroom != null) {
+					model_it_bdd.addComponentToComputerStation(ComponentType.MOUSE, selected_zone, selected_building,
+							selected_classroom, selected_cs_id);
+					updateTreeTable();
+				} else {
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Information ajout matériel");
+
+					alert.setHeaderText("Information :");
+					alert.setContentText("Merci de sélectionner la zone, le batiment et la classe");
+
+					alert.showAndWait();
+				}
+
 			}
 		});
 
@@ -374,14 +377,21 @@ public class MainController extends Controller implements Initializable {
 			@Override
 			public void handle(ActionEvent arg0) {
 				System.out.println("Ajouter un clavier");
-				model_it_bdd.addComponentToComputerStation(
-					ComponentType.KEYBOARD,
-					selected_cs.getParentClassroom().getParentBuilding().getParentZone().getName(),
-					selected_cs.getParentClassroom().getParentBuilding().getName(),
-					selected_cs.getParentClassroom().getName(),
-					selected_cs.getId()
-				);
-				updateTreeTable();
+
+				if (selected_zone != null && selected_building != null && selected_classroom != null) {
+					model_it_bdd.addComponentToComputerStation(ComponentType.KEYBOARD, selected_zone, selected_building,
+							selected_classroom, selected_cs_id);
+					updateTreeTable();
+				} else {
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Information ajout matériel");
+
+					alert.setHeaderText("Information :");
+					alert.setContentText("Merci de sélectionner la zone, le batiment et la classe");
+
+					alert.showAndWait();
+				}
+
 			}
 		});
 		add_component.getItems().addAll(central_unit, screen, mouse, keyboard);
@@ -397,22 +407,25 @@ public class MainController extends Controller implements Initializable {
 				Scene detail_loader_scene;
 
 				try {
-					detail_loader.setController(
-						new DetailStationController(
-							screen_controller,
-							model_it_bdd.getComputerStation(
-								selected_cs.getParentClassroom().getParentBuilding().getParentZone().getName(),
-								selected_cs.getParentClassroom().getParentBuilding().getName(),
-								selected_cs.getParentClassroom().getName(),
-								selected_cs.getId()
-							)
-						)
-					);
-					detail_loader_scene = new Scene(detail_loader.load());
-					Stage stage = new Stage();
-					stage.setTitle("Détails");
-					stage.setScene(detail_loader_scene);
-					stage.show();
+					if (selected_zone != null && selected_building != null && selected_classroom != null) {
+						detail_loader.setController(
+								new DetailStationController(screen_controller, model_it_bdd.getComputerStation(
+										selected_zone, selected_building, selected_classroom, selected_cs_id)));
+						detail_loader_scene = new Scene(detail_loader.load());
+						Stage stage = new Stage();
+						stage.setTitle("DÃ©tails");
+						stage.setScene(detail_loader_scene);
+						stage.show();
+					} else {
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Information détail matériel");
+
+						alert.setHeaderText("Information :");
+						alert.setContentText("Merci de sélectionner la zone, le batiment et la classe");
+
+						alert.showAndWait();
+					}
+
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -431,24 +444,29 @@ public class MainController extends Controller implements Initializable {
 				Scene edition_loader_scene;
 
 				try {
-					edition_loader.setController(
-						new EditStationController(
-							screen_controller,
-							selected_cs,
-							model_it_bdd
-						)
-					);
-					edition_loader_scene = new Scene(edition_loader.load());
-					Stage stage = new Stage();
-					stage.setTitle("Edition unité centrale");
-					stage.setScene(edition_loader_scene);
-					stage.showAndWait();
-					
+					if (selected_zone != null && selected_building != null && selected_classroom != null) {
+						// edition_loader.setController(new
+						// DetailStationController(screen_controller,model_it_bdd.getComputerStation(
+						// selected_zone, selected_building, selected_classroom, selected_cs_id)));
+						edition_loader_scene = new Scene(edition_loader.load());
+						Stage stage = new Stage();
+						stage.setTitle("Edition unité centrale");
+						stage.setScene(edition_loader_scene);
+						stage.show();
+					} else {
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Information dÃ©tail matÃ©riel");
+
+						alert.setHeaderText("Information :");
+						alert.setContentText("Merci de sélectionner la zone, le batiment et la classe");
+
+						alert.showAndWait();
+					}
+
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				updateTreeTable();
 			}
 		});
 
@@ -457,98 +475,24 @@ public class MainController extends Controller implements Initializable {
 
 			@Override
 			public void handle(ActionEvent event) {
-				model_it_bdd.removeComputerStationAt(
-					selected_cs.getParentClassroom().getParentBuilding().getParentZone().getName(),
-					selected_cs.getParentClassroom().getParentBuilding().getName(),
-					selected_cs.getParentClassroom().getName(),
-					selected_cs.getId()
-				);
-				updateTreeTable();
+				if (selected_zone != null && selected_building != null && selected_classroom != null) {
+					model_it_bdd.removeComputerStationAt(selected_zone, selected_building, selected_classroom,
+							selected_cs_id);
+					updateTreeTable();
+				} else {
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Information détail matériel");
+
+					alert.setHeaderText("Information :");
+					alert.setContentText("Merci de sélectionner la zone, le batiment et la classe");
+
+					alert.showAndWait();
+				}
+
 			}
 		});
 
 		this.contextMenu.getItems().addAll(add_component, details_component, modify_component, delete_component);
-	}
-	
-	private void initializeComponentContextMenu() {
-		this.componentContextMenu = new ContextMenu();
-		
-		MenuItem details_component = new MenuItem("Détails");
-		details_component.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				FXMLLoader detail_loader = new FXMLLoader();
-				detail_loader.setLocation(getClass().getResource("/application/detail_component.fxml"));
-
-				Scene detail_loader_scene;
-
-				try {
-					detail_loader.setController(
-						new DetailComponentController(
-							screen_controller,
-							selected_component
-						)
-					);
-					detail_loader_scene = new Scene(detail_loader.load());
-					Stage stage = new Stage();
-					stage.setTitle("Détails");
-					stage.setScene(detail_loader_scene);
-					stage.show();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});
-		
-		MenuItem modify = new MenuItem("Modifier");
-		modify.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent arg0) {
-				System.out.println("Modifier matériel");
-				
-				FXMLLoader edition_loader = new FXMLLoader();
-				edition_loader.setLocation(getClass().getResource("/application/edit_component.fxml"));
-
-				Scene edition_loader_scene;
-				
-				try {
-					edition_loader.setController(new EditComponentController(screen_controller, selected_component, model_it_bdd));
-					edition_loader_scene = new Scene(edition_loader.load());
-					Stage stage = new Stage();
-					stage.setTitle("Edition matériel");
-					stage.setScene(edition_loader_scene);
-					stage.showAndWait();
-					
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				selected_component = null;
-				
-				updateTreeTable();
-			}
-		});
-		
-		MenuItem delete = new MenuItem("Supprimer");
-		delete.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent arg0) {
-				System.out.println("Supprimer matériel");
-				selected_component.getParentComputerStation().deleteComponent(selected_component);
-				selected_component = null;
-		
-				updateTreeTable();
-			}
-		}
-	);
-
-	this.componentContextMenu.getItems().addAll(details_component,modify,delete);
-	
 	}
 
 	private void initializeTeacherTreeTable() {
@@ -556,25 +500,17 @@ public class MainController extends Controller implements Initializable {
 		this.teacherNameColumn.setCellValueFactory(new TreeItemPropertyValueFactory<User, String>("name"));
 		this.teacherDepartementColumn
 				.setCellValueFactory(new TreeItemPropertyValueFactory<User, Departement>("departement"));
-		
+
+		this.TreeTableTeachers.setShowRoot(false);
+
 		this.TreeTableTeachers.setOnMouseClicked((MouseEvent e) -> {
-			TreeItem<User> selectedItem = (TreeItem<User>) this.TreeTableTeachers.getSelectionModel().getSelectedItem();
-			if (selectedItem != null) {
-				if (e.getButton() == MouseButton.PRIMARY) {
-					teacherContextMenu.hide();
-				}
-				else {
-					if (e.getButton() == MouseButton.SECONDARY) {
-						this.selected_user = selectedItem.getValue();
-						if (!this.selected_user.isAdmin()) {
-							teacherContextMenu.show(this.TreeTableTeachers, e.getScreenX(), e.getScreenY());
-						}
-						else {
-							teacherContextMenu.hide();
-						}
-					}
-				}
-				
+			if (e.getButton() == MouseButton.SECONDARY) {
+				Text item = (Text) e.getTarget();
+				name_selected_teacher = item.getText();
+
+				// TODO be careful here to right click on name
+				teacherContextMenu.show(item, e.getScreenX(), e.getScreenY());
+
 			}
 		});
 
@@ -607,7 +543,7 @@ public class MainController extends Controller implements Initializable {
 				
 				try {
 	
-					edition_loader.setController(new EditTeacherController(screen_controller, selected_user));
+					edition_loader.setController(new EditTeacherController(screen_controller,model_user_bdd.getUserByName(name_selected_teacher)));
 					edition_loader_scene = new Scene(edition_loader.load());
 					Stage stage = new Stage();
 					stage.setTitle("Edition enseignant");
@@ -619,7 +555,7 @@ public class MainController extends Controller implements Initializable {
 					e.printStackTrace();
 				}
 				
-				selected_user = null;
+				name_selected_teacher = null;
 				
 				updateTeacherTreeTable(model_user_bdd.getUserDB());
 				
@@ -628,60 +564,19 @@ public class MainController extends Controller implements Initializable {
 		
 		MenuItem delete = new MenuItem("Supprimer");
 		delete.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent arg0) {
-				System.out.println("Supprimer utilisateur");
-				model_user_bdd.deleteUser(selected_user);
-				selected_user = null;
-		
-				updateTeacherTreeTable(model_user_bdd.getUserDB());
-			}
-		}
-	);
 
-	this.teacherContextMenu.getItems().addAll(modify,delete);
-	
-	}
-	
-	private void initializeBookingContextMenu() {
-		this.bookingContextMenu = new ContextMenu();
+	@Override
+	public void handle(ActionEvent arg0) {
+		System.out.println("Supprimer utilisateur");
+		model_user_bdd.deleteUserAt(model_user_bdd.getUserIndexByName(name_selected_teacher));
+		name_selected_teacher = null;
 		
-		MenuItem delete = new MenuItem("Supprimer");
-		delete.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent arg0) {
-				System.out.println("Supprimer la réservation");
-				model_it_bdd.deleteBooking(selected_booking);
-				selected_booking = null;
-				updateBookingTable();
-			}
-		}
-	);
-
-	this.bookingContextMenu.getItems().addAll(delete);
-	
+		updateTeacherTreeTable(model_user_bdd.getUserDB());
 	}
-	
-	private void initializeBookingStationContextMenu() {
-		this.bookingStationContextMenu = new ContextMenu();
-		
-		MenuItem delete = new MenuItem("Supprimer");
-		delete.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent arg0) {
-				System.out.println("Supprimer station de réservation");
-				model_it_bdd.deleteBookingStation(selected_booking, selected_station_booking);
-				selected_station_booking = null;
-				updateBookingTable();
-			}
-		}
-	);
 
-	this.bookingStationContextMenu.getItems().addAll(delete);
-	}
+	});
+
+	this.teacherContextMenu.getItems().addAll(modify,delete);}
 
 	private void initializeTreeTable() {
 		this.componentNameColumn.setCellValueFactory(new TreeItemPropertyValueFactory<Component, String>("name"));
@@ -689,43 +584,14 @@ public class MainController extends Controller implements Initializable {
 				.setCellValueFactory(new TreeItemPropertyValueFactory<Component, Availability>("access"));
 		this.componentStateColumn.setCellValueFactory(new TreeItemPropertyValueFactory<Component, State>("state"));
 
+		this.TreeTableMaterial.setShowRoot(false);
+
 		this.TreeTableMaterial.setOnMouseClicked((MouseEvent e) -> {
-			TreeItem<Component> selectedItem = (TreeItem<Component>) this.TreeTableMaterial.getSelectionModel().getSelectedItem();
-			if (selectedItem == null) {
-				b_reserve.setDisable(true);
-			}
-			else {
-				if (e.getButton() == MouseButton.PRIMARY) {
-					if (selectedItem.getValue().getType() == ComponentType.COMPUTER_STATION) {
-						b_reserve.setDisable(false);
-						this.selected_cs = (ComputerStation) selectedItem.getValue();
-					}
-					else {
-						this.selected_component = (Component) selectedItem.getValue();
-						b_reserve.setDisable(true);
-					}
-					contextMenu.hide();
-					componentContextMenu.hide();
-				}
-				else {
-					if (e.getButton() == MouseButton.SECONDARY) {
-						if (selectedItem.getValue().getType() == ComponentType.COMPUTER_STATION) {
-							b_reserve.setDisable(false);
-							this.selected_cs = (ComputerStation) selectedItem.getValue();
-							if (this.main_user.isAdmin()) {
-								componentContextMenu.hide();
-								contextMenu.show(this.TreeTableMaterial, e.getScreenX(), e.getScreenY());
-							}
-						}
-						else {
-							b_reserve.setDisable(true);
-							this.selected_component = (Component) selectedItem.getValue();
-							if (this.main_user.isAdmin()) {
-								contextMenu.hide();
-								componentContextMenu.show(this.TreeTableMaterial, e.getScreenX(), e.getScreenY());
-							}
-						}
-					}
+			if (e.getButton() == MouseButton.SECONDARY) {
+				Text item = (Text) e.getTarget();
+				this.selected_cs_id = Integer.parseInt(item.getText().replaceAll("[^0-9]", ""));
+				if (item.getText().contains(ComponentType.COMPUTER_STATION.toString()) && this.main_user.isAdmin()) {
+					contextMenu.show(item, e.getScreenX(), e.getScreenY());
 				}
 			}
 		});
@@ -762,56 +628,6 @@ public class MainController extends Controller implements Initializable {
 					this.selected_building, this.selected_classroom));
 		}
 	}
-	
-	public void updateBookingTable(List<Booking> list_booking) {
-		TreeItem<Object> itemRoot = null;
-		this.TreeReservation.setRoot(new TreeItem<>());
-		
-		for (Booking booking : list_booking) {
-			itemRoot = new TreeItem<Object>(booking);
-			this.TreeReservation.getRoot().getChildren().add(itemRoot);
-
-			for (ComputerStation station : booking.getComputerStations()) {
-				TreeItem<Object> itemComponent = new TreeItem<Object>(station);
-				itemRoot.getChildren().add(itemComponent);
-			}
-		}
-	}
-	
-	public void updateBookingTable() {
-		this.updateBookingTable(this.model_it_bdd.getUserBookings(this.main_user));
-	}
-	
-	private void initializeBookingTable() {
-		//this.TreeReservation.setCellFactory(new TreeItemPropertyValueFactory<>("name"));
-		
-		this.TreeReservation.setOnMouseClicked((MouseEvent e) -> {
-			TreeItem<Object> selectedItem = (TreeItem<Object>) this.TreeReservation.getSelectionModel().getSelectedItem();
-			if (selectedItem != null) {
-				if (e.getButton() == MouseButton.PRIMARY) {
-					bookingContextMenu.hide();
-					bookingStationContextMenu.hide();
-				}
-				else {
-					if (e.getButton() == MouseButton.SECONDARY) {
-						if (selectedItem.getValue().getClass() == Booking.class) {
-							this.selected_booking = (Booking) selectedItem.getValue();
-							bookingContextMenu.show(this.TreeReservation, e.getScreenX(), e.getScreenY());
-							bookingStationContextMenu.hide();
-						}
-						else {
-							this.selected_booking = (Booking) selectedItem.getParent().getValue();
-							this.selected_station_booking = (ComputerStation) selectedItem.getValue();
-							bookingStationContextMenu.show(this.TreeReservation, e.getScreenX(), e.getScreenY());
-							bookingContextMenu.hide();
-						}
-					}
-				}
-			}
-		});
-		
-		this.updateBookingTable();
-	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -843,14 +659,11 @@ public class MainController extends Controller implements Initializable {
 		ComboZone.getItems().add(null);
 		
 		this.ComboZoneUserDepartement.getItems().addAll(Departement.values());
-		this.ComboZoneUserDepartement.getItems().add(null);
 
 		this.initializeTreeTable();
 		this.initializeTeacherTreeTable();
 		this.initializeContextMenu();
-		this.initializeComponentContextMenu();
-		this.initializeBookingContextMenu();
-		this.initializeBookingStationContextMenu();
 		this.initializeTeacherContextMenu();
+
 	}
 }

@@ -24,9 +24,9 @@
                   <Insets right="50.0" />
                </HBox.margin>
                <children>
-                  <ComboBox fx:id="ComboZone" onAction="#setBatimentChoice" maxWidth="1.7976931348623157E308" />
-                  <ComboBox fx:id="ComboBuilding" onAction="#setClassrooms" maxWidth="1.7976931348623157E308" />
-                  <ComboBox fx:id="ComboRoom" onAction="#getClassroom" maxWidth="1.7976931348623157E308" />
+                  <ComboBox fx:id="ComboZone" maxWidth="1.7976931348623157E308" onAction="#setBatimentChoice" />
+                  <ComboBox fx:id="ComboBuilding" disable="true" maxWidth="1.7976931348623157E308" onAction="#setClassrooms" />
+                  <ComboBox fx:id="ComboRoom" disable="true" maxWidth="1.7976931348623157E308" onAction="#getClassroom" />
                </children>
             </VBox>
          </children>
@@ -41,7 +41,7 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="61.0" prefWidth="390.0" spacing="30.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="b_add" mnemonicParsing="false" onAction="#add_component" prefHeight="25.0" prefWidth="100.0" text="Ajouter" />
+            <Button fx:id="b_add" disable="true" mnemonicParsing="false" onAction="#add_component" prefHeight="25.0" prefWidth="100.0" text="Ajouter" />
             <Button fx:id="b_cancel" mnemonicParsing="false" onAction="#quit" prefHeight="25.0" prefWidth="100.0" text="Annuler" />
          </children>
       </HBox>

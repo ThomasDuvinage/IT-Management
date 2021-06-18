@@ -1,5 +1,7 @@
 package Component;
 
+import Area.Classroom;
+
 /**
  * 
  * @author GertrudeKambouKemamen, AhmetAdam, ThomasDuvinage
@@ -7,7 +9,7 @@ package Component;
  * @brief This class is used to define every Component of each UTBM's classrooms
  *
  */
-public class Component {
+public abstract class Component {
 	private String name;
 	protected int id;
 	
@@ -16,6 +18,7 @@ public class Component {
 	protected Availability access;
 	
 	private ComputerStation parentComputerStation;
+	private Classroom parentClassroom;
 	
 	public Component(int n_id) {
 		this.state = State.GOOD; //TODO set 
@@ -23,8 +26,27 @@ public class Component {
 		this.id = n_id;
 	}
 	
+	public Component(int n_id, Classroom parent) {
+		this.state = State.GOOD; //TODO set 
+		this.access = Availability.FREE;
+		this.id = n_id;
+		this.parentClassroom = parent;
+	}
+	
+	public ComputerStation getParentComputerStation() {
+		return this.parentComputerStation;
+	}
+	
 	public void setParentComputerStation(ComputerStation parentCS) {
 		this.parentComputerStation = parentCS;
+	}
+	
+	public Classroom getParentClassroom() {
+		return this.parentClassroom;
+	}
+	
+	public void setParentClassroom(Classroom room) {
+		this.parentClassroom = room;
 	}
 	
 	public void setState(State new_state) {
@@ -59,6 +81,7 @@ public class Component {
 		return this.type;
 	}
 	
+	abstract public String getImage(int size);
 	
 	public String toString() {
 		String out = "";

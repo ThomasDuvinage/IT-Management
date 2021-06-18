@@ -79,7 +79,10 @@ public class EditTeacherController extends Controller implements Initializable {
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		this.f_last_name.setText(this.user.getName());
+		this.f_first_name.setText(this.user.getFirstName());
+		this.f_username.setText(this.user.getPseudo());
 		this.cb_department.getItems().addAll(Departement.values());
-		
+		cb_department.setValue(this.user.getDepartement());
 	}
 }

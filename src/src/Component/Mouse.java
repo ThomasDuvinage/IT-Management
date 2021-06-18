@@ -6,5 +6,9 @@ public class Mouse extends Component {
 		this.type = ComponentType.MOUSE;
 		this.setName();
 	}
-
+	
+	@Override
+	public String getImage(int size) {
+		return "Mouse_" + size + ".png";
+	}
 }

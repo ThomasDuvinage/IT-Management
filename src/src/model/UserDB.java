@@ -32,12 +32,16 @@ public class UserDB {
 		List<User> users_dep = new ArrayList<>();
 		
 		for(User u: this.users) {
-			if(u.getDepartement() == dep) {
+			if(u.getDepartement() == dep || dep == null) {
 				users_dep.add(u);
 			}
 		}
 		
 		return users_dep;
+	}
+	
+	public void deleteUser(User user) {
+		this.users.remove(user);
 	}
 	
 	public void deleteUserAt(int index) {

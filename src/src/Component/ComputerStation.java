@@ -24,15 +24,13 @@ import User.User;
 
 public class ComputerStation extends Component {
 	private ArrayList<Component> ListComponent;
-	private Classroom parentClassroom;
 	
 	private User user;
 
 	public ComputerStation(int id, Classroom parentClassroom) {
-		super(id);
+		super(id, parentClassroom);
 		this.ListComponent = new ArrayList<Component>();
 		setComputerStation();
-		this.parentClassroom = parentClassroom;
 		
 		this.state = State.GOOD;
 		this.type = ComponentType.COMPUTER_STATION;
@@ -106,9 +104,8 @@ public class ComputerStation extends Component {
 		this.ListComponent.add(c);
 	}
 	
-	
-	public Classroom getParentClassroom() {
-		return this.parentClassroom;
+	public void deleteComponent(Component c) {
+		this.ListComponent.remove(c);
 	}
 
 	public int getId() {
@@ -116,17 +113,28 @@ public class ComputerStation extends Component {
 	}
 
 	public void updateState() {
-		for (int i = 0; i < ListComponent.size(); i++) {
-			if (ListComponent.get(i).getState() == State.HS || ListComponent.get(i).getState() == State.TO_BE_REPARED) {
-				this.state = State.HS;
+		State worst = State.GOOD;
+			
+		int i = ListComponent.size() - 1;
+		while (i >= 0 && worst != State.HS) {
+			if (ListComponent.get(i).getState() == State.HS) {
+				worst = State.HS;
 			}
+			else {
+				if (ListComponent.get(i).getState() == State.TO_BE_REPARED) {
+					worst = State.TO_BE_REPARED;
+				}
+			}
+			i--;
 		}
+		
+		this.state = worst;
 	}
 
-	public String toString() {
+	/*public String toString() {
 		String out = "";
 		out += "Computer Station ID : " + this.id + "\n";
-		out += "Parent Classroom ID : " + this.parentClassroom.getId() + "\n";
+		out += "Parent Classroom ID : " + this.getParentClassroom().getId() + "\n";
 		out += "State : " + this.state.toString() + "\n";
 		out += "Availability : " + this.access.toString() + "\n";
 		
@@ -141,6 +149,14 @@ public class ComputerStation extends Component {
 		}
 		
 		return out;
+	}*/
+	
+	@Override
+	public String getImage(int size) {
+		return "Station_" + size + ".png";
 	}
-
+	
+	public String toString() {
+		return this.getName();
+	}
 }
