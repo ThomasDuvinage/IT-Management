@@ -3,7 +3,7 @@ package User;
 import java.util.List;
 
 import Component.ComputerStation;
-import application.Booking;
+import model.Booking;
 
 /**
  * @brief This enumeration is used to define the right associated to each user

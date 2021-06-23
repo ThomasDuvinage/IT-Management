@@ -16,7 +16,6 @@ import Component.ComputerStation;
 import Component.State;
 import User.Departement;
 import User.User;
-import application.Booking;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -40,6 +39,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.Booking;
 import model.ITManagementDB;
 import model.UserDB;
 
@@ -315,14 +315,14 @@ public class MainController extends Controller implements Initializable {
 	private void initializeContextMenu() {
 		this.contextMenu = new ContextMenu();
 
-		Menu add_component = new Menu("Ajouter un matériel");
+		Menu add_component = new Menu("Ajouter un matï¿½riel");
 
-		MenuItem central_unit = new MenuItem("Unité centrale");
+		MenuItem central_unit = new MenuItem("Unitï¿½ centrale");
 		central_unit.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				System.out.println("Ajouter une unité centrale");
+				System.out.println("Ajouter une unitï¿½ centrale");
 				model_it_bdd.addComponentToComputerStation(
 					ComponentType.SYSTEM_UNIT,
 					selected_cs.getParentClassroom().getParentBuilding().getParentZone().getName(),
@@ -339,7 +339,7 @@ public class MainController extends Controller implements Initializable {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				System.out.println("Ajouter un écran");
+				System.out.println("Ajouter un ï¿½cran");
 				model_it_bdd.addComponentToComputerStation(
 					ComponentType.SCREEN,
 					selected_cs.getParentClassroom().getParentBuilding().getParentZone().getName(),
@@ -386,7 +386,7 @@ public class MainController extends Controller implements Initializable {
 		});
 		add_component.getItems().addAll(central_unit, screen, mouse, keyboard);
 
-		MenuItem details_component = new MenuItem("Détails");
+		MenuItem details_component = new MenuItem("Dï¿½tails");
 		details_component.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -410,7 +410,7 @@ public class MainController extends Controller implements Initializable {
 					);
 					detail_loader_scene = new Scene(detail_loader.load());
 					Stage stage = new Stage();
-					stage.setTitle("Détails");
+					stage.setTitle("Dï¿½tails");
 					stage.setScene(detail_loader_scene);
 					stage.show();
 				} catch (IOException e) {
@@ -440,7 +440,7 @@ public class MainController extends Controller implements Initializable {
 					);
 					edition_loader_scene = new Scene(edition_loader.load());
 					Stage stage = new Stage();
-					stage.setTitle("Edition unité centrale");
+					stage.setTitle("Edition unitï¿½ centrale");
 					stage.setScene(edition_loader_scene);
 					stage.showAndWait();
 					
@@ -473,7 +473,7 @@ public class MainController extends Controller implements Initializable {
 	private void initializeComponentContextMenu() {
 		this.componentContextMenu = new ContextMenu();
 		
-		MenuItem details_component = new MenuItem("Détails");
+		MenuItem details_component = new MenuItem("Dï¿½tails");
 		details_component.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -492,7 +492,7 @@ public class MainController extends Controller implements Initializable {
 					);
 					detail_loader_scene = new Scene(detail_loader.load());
 					Stage stage = new Stage();
-					stage.setTitle("Détails");
+					stage.setTitle("Dï¿½tails");
 					stage.setScene(detail_loader_scene);
 					stage.show();
 				} catch (IOException e) {
@@ -507,7 +507,7 @@ public class MainController extends Controller implements Initializable {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				System.out.println("Modifier matériel");
+				System.out.println("Modifier matï¿½riel");
 				
 				FXMLLoader edition_loader = new FXMLLoader();
 				edition_loader.setLocation(getClass().getResource("/application/edit_component.fxml"));
@@ -518,7 +518,7 @@ public class MainController extends Controller implements Initializable {
 					edition_loader.setController(new EditComponentController(screen_controller, selected_component, model_it_bdd));
 					edition_loader_scene = new Scene(edition_loader.load());
 					Stage stage = new Stage();
-					stage.setTitle("Edition matériel");
+					stage.setTitle("Edition matï¿½riel");
 					stage.setScene(edition_loader_scene);
 					stage.showAndWait();
 					
@@ -538,7 +538,7 @@ public class MainController extends Controller implements Initializable {
 			
 			@Override
 			public void handle(ActionEvent arg0) {
-				System.out.println("Supprimer matériel");
+				System.out.println("Supprimer matï¿½riel");
 				selected_component.getParentComputerStation().deleteComponent(selected_component);
 				selected_component = null;
 		
@@ -652,7 +652,7 @@ public class MainController extends Controller implements Initializable {
 			
 			@Override
 			public void handle(ActionEvent arg0) {
-				System.out.println("Supprimer la réservation");
+				System.out.println("Supprimer la rï¿½servation");
 				model_it_bdd.deleteBooking(selected_booking);
 				selected_booking = null;
 				updateBookingTable();
@@ -672,7 +672,7 @@ public class MainController extends Controller implements Initializable {
 			
 			@Override
 			public void handle(ActionEvent arg0) {
-				System.out.println("Supprimer station de réservation");
+				System.out.println("Supprimer station de rï¿½servation");
 				model_it_bdd.deleteBookingStation(selected_booking, selected_station_booking);
 				selected_station_booking = null;
 				updateBookingTable();
@@ -820,7 +820,7 @@ public class MainController extends Controller implements Initializable {
 
 		this.model_it_bdd.addZone(new Zone(1, "Sevenans"));
 		this.model_it_bdd.addZone(new Zone(2, "Belfort"));
-		this.model_it_bdd.addZone(new Zone(3, "Montbéliard"));
+		this.model_it_bdd.addZone(new Zone(3, "Montbï¿½liard"));
 
 		Building pont = new Building(1, this.model_it_bdd.getZoneByName("Sevenans"), "Pont");
 		pont.createNClassroom(2);
@@ -836,7 +836,7 @@ public class MainController extends Controller implements Initializable {
 		Building batD = new Building(4, this.model_it_bdd.getZoneByName("Belfort"), "Bat D");
 		batD.createNClassroomWithNComputerStation(2, 3);
 		
-		Building mecanique = new Building(1, this.model_it_bdd.getZoneByName("Montbéliard"), "Mécanique");
+		Building mecanique = new Building(1, this.model_it_bdd.getZoneByName("Montbï¿½liard"), "Mï¿½canique");
 		mecanique.createNClassroomWithNComputerStation(2, 3);
 		
 		ComboZone.getItems().addAll(this.model_it_bdd.getAllZone());

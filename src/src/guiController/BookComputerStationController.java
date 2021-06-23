@@ -11,12 +11,12 @@ import java.util.ResourceBundle;
 
 import Component.ComputerStation;
 import User.User;
-import application.Booking;
 import javafx.event.ActionEvent;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import model.Booking;
 import model.ITManagementDB;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
@@ -53,7 +53,7 @@ public class BookComputerStationController extends Controller implements Initial
 	
 	private void showAlertErrorBooking(String err) {
         Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Erreur de réservation");
+        alert.setTitle("Erreur de rï¿½servation");
  
         alert.setHeaderText(err);
  
@@ -68,15 +68,15 @@ public class BookComputerStationController extends Controller implements Initial
 		}
 		else {
 			if (cb_occupy_h_s.getValue() > cb_occupy_h_e.getValue()) {
-				showAlertErrorBooking("Période invalide.");
+				showAlertErrorBooking("Pï¿½riode invalide.");
 			}
 			else {
 				if (cb_occupy_h_s.getValue() == cb_occupy_h_e.getValue() && cb_occupy_m_s.getValue() >= cb_occupy_m_e.getValue()) {
-					showAlertErrorBooking("Période invalide.");
+					showAlertErrorBooking("Pï¿½riode invalide.");
 				}
 				else {
 					if (model_it_bdd.isComputerStationOccupied(this.station, dp_occpuy_date.getValue(), cb_occupy_h_s.getValue(), cb_occupy_m_s.getValue(), cb_occupy_h_e.getValue(), cb_occupy_m_e.getValue())) {
-						showAlertErrorBooking("Le poste est occupé sur ce créneau.");
+						showAlertErrorBooking("Le poste est occupï¿½ sur ce crï¿½neau.");
 					}
 					else {
 						boolean exists = false;
